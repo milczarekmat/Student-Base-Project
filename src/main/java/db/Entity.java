@@ -1,4 +1,4 @@
-package Db;
+package db;
 
 public class Entity {
 }

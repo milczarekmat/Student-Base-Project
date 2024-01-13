@@ -3,5 +3,6 @@ module student.base.project {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens Client;
+    opens client;
+    opens client.controllers;
 }
