@@ -18,8 +18,9 @@ public class LandingPageController implements Controller{
         Parent root = loader.load();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-
         //        Controller newSceneController = loader.getController();
+        stage.setHeight(stage.getHeight());
+        stage.setWidth(stage.getWidth());
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

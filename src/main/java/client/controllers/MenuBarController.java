@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
@@ -17,9 +19,9 @@ public class MenuBarController implements Controller {
     @FXML
     private MenuBar menuBar;
 
-    private float currentWidth;
-    private float currentHeight;
-
+    public void toSubjectList() throws IOException {
+        changeScene("/subjectList.fxml");
+    }
     public void toStudentList() throws IOException {
         changeScene("/studentList.fxml");
     }
@@ -28,10 +30,31 @@ public class MenuBarController implements Controller {
         changeScene("/mainPage.fxml");
     }
 
+    public void logOut() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Wylogowanie");
+        alert.setHeaderText("Potwierdzenie");
+        alert.setContentText("Czy chcesz na pewno się wylogować?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    changeScene("/landingPage.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+    }
+
     private void changeScene(String fxmlFilePath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFilePath));
         root = loader.load();
         Stage stage = (Stage) menuBar.getScene().getWindow();
+
+        stage.setHeight(stage.getHeight());
+        stage.setWidth(stage.getWidth());
 
         scene = new Scene(root);
         stage.setScene(scene);
