@@ -9,13 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3baafb8-bae9-441e-8011-a334c2100c2f" name="Changes" comment="Added db and servers packages">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/subjectList.fxml" afterDir="false" />
+    <list default="true" id="a3baafb8-bae9-441e-8011-a334c2100c2f" name="Changes" comment="Dodana lista studentów i przedmiotów">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/main/subject/subjectList.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/LandingPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/LandingPageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MenuBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MenuBarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/menuBar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/menuBar.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/studentList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/studentList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/landingPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/landing/landingPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mainPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main/mainPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/menuBar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main/menuBar.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/studentList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main/student/studentList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/subjectList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main/student/addStudent.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +86,13 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\main\subject" />
+      <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\main\student" />
+      <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\main" />
+      <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\landing" />
+      <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\student" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -137,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705163065024</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Dodana lista studentów i przedmiotów">
+      <created>1705226523595</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705226523595</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,7 +166,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="16-klient-widok-dodawania-i-usuwania-studenta" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -159,7 +189,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Added db and servers packages" />
     <MESSAGE value="Dodany podstawowy layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodany podstawowy layout" />
+    <MESSAGE value="Dodana lista studentów i przedmiotów" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodana lista studentów i przedmiotów" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

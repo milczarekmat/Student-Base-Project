@@ -9,10 +9,10 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.StudentListController">
     <children>
-        <fx:include fx:id="menu" source="menuBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <fx:include fx:id="menu" source="../menuBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <FlowPane alignment="CENTER" layoutX="212.0" layoutY="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-              <Label prefHeight="76.0" prefWidth="282.0" text="Lista studentów">
+              <Label prefHeight="76.0" prefWidth="541.0" text="Lista wszystkich przedmiotów">
                   <font>
                       <Font size="40.0" />
                   </font>
@@ -21,10 +21,9 @@
       </FlowPane>
       <TableView layoutX="26.0" layoutY="132.0" prefHeight="338.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="162.0">
         <columns>
-          <TableColumn prefWidth="129.0" resizable="false" text="Nr indeksu" />
-          <TableColumn minWidth="0.0" prefWidth="186.0" text="Imię" />
-            <TableColumn minWidth="0.0" prefWidth="202.0" text="Nazwisko" />
-            <TableColumn minWidth="0.0" prefWidth="233.0" text="Wydział" />
+          <TableColumn editable="false" prefWidth="128.0" resizable="false" text="Id" />
+          <TableColumn minWidth="0.0" prefWidth="289.0" text="Nazwa przedmiotu" />
+            <TableColumn minWidth="0.0" prefWidth="333.0" text="Prowadzący" />
         </columns>
       </TableView>
     </children>
