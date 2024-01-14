@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 14 Sty 2024, 10:56
--- Wersja serwera: 10.4.17-MariaDB
--- Wersja PHP: 8.0.1
+-- Czas generowania: 14 Sty 2024, 12:44
+-- Wersja serwera: 10.4.6-MariaDB
+-- Wersja PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -42,16 +43,17 @@ CREATE TABLE `grades` (
 CREATE TABLE `students` (
   `ind` int(11) NOT NULL,
   `name` text COLLATE utf8_polish_ci NOT NULL,
-  `surname` text COLLATE utf8_polish_ci NOT NULL
+  `surname` text COLLATE utf8_polish_ci NOT NULL,
+  `department` text COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `studnet_grades`
+-- Struktura tabeli dla tabeli `student_grades`
 --
 
-CREATE TABLE `studnet_grades` (
+CREATE TABLE `student_grades` (
   `id_subject` int(11) NOT NULL,
   `id_student` int(11) NOT NULL,
   `id_grade` int(11) DEFAULT NULL
@@ -65,7 +67,8 @@ CREATE TABLE `studnet_grades` (
 
 CREATE TABLE `subjects` (
   `id` int(11) NOT NULL,
-  `name` text COLLATE utf8_polish_ci NOT NULL
+  `name` text COLLATE utf8_polish_ci NOT NULL,
+  `subject_manager` text COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
@@ -85,10 +88,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`ind`);
 
 --
--- Indeksy dla tabeli `studnet_grades`
+-- Indeksy dla tabeli `student_grades`
 --
-ALTER TABLE `studnet_grades`
-  ADD PRIMARY KEY (`id_subject`);
+ALTER TABLE `student_grades`
+  ADD KEY `id_grade` (`id_grade`),
+  ADD KEY `id_student` (`id_student`),
+  ADD KEY `id_subject` (`id_subject`);
 
 --
 -- Indeksy dla tabeli `subjects`
@@ -97,7 +102,7 @@ ALTER TABLE `subjects`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT dla zrzuconych tabel
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
@@ -113,16 +118,22 @@ ALTER TABLE `students`
   MODIFY `ind` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `studnet_grades`
---
-ALTER TABLE `studnet_grades`
-  MODIFY `id_subject` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT dla tabeli `subjects`
 --
 ALTER TABLE `subjects`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Ograniczenia dla zrzutów tabel
+--
+
+--
+-- Ograniczenia dla tabeli `student_grades`
+--
+ALTER TABLE `student_grades`
+  ADD CONSTRAINT `student_grades_ibfk_1` FOREIGN KEY (`id_grade`) REFERENCES `grades` (`id`),
+  ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`id_student`) REFERENCES `students` (`ind`),
+  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`id_subject`) REFERENCES `subjects` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
