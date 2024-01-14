@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
 <MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.MenuBarController">
   <menus>
-      <Menu mnemonicParsing="false">
-          <graphic>
-              <Label onMouseClicked="#toStart" text="Wyszukaj studenta" />
-          </graphic>
+      <Menu mnemonicParsing="false" text="Start">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#toStart" text="Strona główna" />
+            <MenuItem mnemonicParsing="false" onAction="#logOut" text="Wyloguj" />
+         </items>
       </Menu>
     <Menu mnemonicParsing="false" text="Studenci">
       <items>
@@ -21,7 +21,7 @@
     </Menu>
     <Menu mnemonicParsing="false" text="Przedmioty">
       <items>
-        <MenuItem mnemonicParsing="false" text="Lista przedmiotów" />
+        <MenuItem mnemonicParsing="false" onAction="#toSubjectList" text="Lista przedmiotów" />
             <MenuItem mnemonicParsing="false" text="Dodaj przedmiot" />
             <MenuItem mnemonicParsing="false" text="Usuń przedmiot" />
             <MenuItem mnemonicParsing="false" text="Uczęszczane przedmioty ze średnią ocen" />
