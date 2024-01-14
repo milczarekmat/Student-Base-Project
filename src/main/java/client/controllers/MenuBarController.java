@@ -1,5 +1,6 @@
 package client.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,14 +21,31 @@ public class MenuBarController implements Controller {
     private MenuBar menuBar;
 
     public void toSubjectList() throws IOException {
-        changeScene("/subjectList.fxml");
+        changeScene("/main/subject/subjectList.fxml");
     }
+
     public void toStudentList() throws IOException {
-        changeScene("/studentList.fxml");
+        changeScene("/main/student/studentList.fxml");
+    }
+
+    public void toStudentAdd() throws IOException {
+        changeScene("/main/student/addStudent.fxml");
+    }
+
+    public void toStudentDelete() throws IOException {
+        changeScene("/main/student/deleteStudent.fxml");
+    }
+
+    public void toSubjectAdd() throws IOException {
+        changeScene("/main/subject/addSubject.fxml");
+    }
+
+    public void toSubjectDelete() throws IOException {
+        changeScene("/main/subject/deleteSubject.fxml");
     }
 
     public void toStart() throws IOException {
-        changeScene("/mainPage.fxml");
+        changeScene("/main/mainPage.fxml");
     }
 
     public void logOut() {
@@ -39,7 +57,7 @@ public class MenuBarController implements Controller {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 try {
-                    changeScene("/landingPage.fxml");
+                    changeScene("/landing/landingPage.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -60,6 +78,4 @@ public class MenuBarController implements Controller {
         stage.setScene(scene);
         stage.show();
     }
-
-
 }

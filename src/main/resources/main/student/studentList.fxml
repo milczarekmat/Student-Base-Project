@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.StudentListController">
     <children>
-        <fx:include fx:id="menu" source="menuBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <fx:include fx:id="menu" source="../menuBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <FlowPane alignment="CENTER" layoutX="212.0" layoutY="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
               <Label prefHeight="76.0" prefWidth="282.0" text="Lista studentów">

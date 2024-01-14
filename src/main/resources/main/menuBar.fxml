@@ -15,15 +15,15 @@
     <Menu mnemonicParsing="false" text="Studenci">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#toStudentList" text="Lista studentów" />
-            <MenuItem mnemonicParsing="false" text="Dodaj studenta" />
-            <MenuItem mnemonicParsing="false" text="Usuń studenta" />
+            <MenuItem mnemonicParsing="false" onAction="#toStudentAdd" text="Dodaj studenta" />
+            <MenuItem mnemonicParsing="false" onAction="#toStudentDelete" text="Usuń studenta" />
       </items>
     </Menu>
     <Menu mnemonicParsing="false" text="Przedmioty">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#toSubjectList" text="Lista przedmiotów" />
-            <MenuItem mnemonicParsing="false" text="Dodaj przedmiot" />
-            <MenuItem mnemonicParsing="false" text="Usuń przedmiot" />
+            <MenuItem mnemonicParsing="false" onAction="#toSubjectAdd"  text="Dodaj przedmiot" />
+            <MenuItem mnemonicParsing="false" onAction="#toSubjectDelete"  text="Usuń przedmiot" />
             <MenuItem mnemonicParsing="false" text="Uczęszczane przedmioty ze średnią ocen" />
       </items>
     </Menu>
