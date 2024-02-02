@@ -16,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/landing/landingPage.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/scenes/landing/landingPage.fxml")));
         Scene scene = new Scene(root);
 
         primaryStage.setTitle("Baza studentów");
