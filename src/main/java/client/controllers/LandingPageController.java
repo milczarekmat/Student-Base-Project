@@ -14,7 +14,7 @@ public class LandingPageController implements Controller{
     public Button connectButton;
 
     public void logIn(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/mainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/main/mainPage.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 

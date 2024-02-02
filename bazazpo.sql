@@ -136,6 +136,10 @@ ALTER TABLE `student_grades`
   ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`id_subject`) REFERENCES `subjects` (`id`);
 COMMIT;
 
+-- Tylko jedna ocena z przedmiotu dla jednego studenta
+ALTER TABLE `student_grades`
+   ADD UNIQUE KEY `unique_student_subject` (`id_student`, `id_subject`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
