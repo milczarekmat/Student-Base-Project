@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 14 Sty 2024, 12:44
+-- Czas generowania: 03 Lut 2024, 14:05
 -- Wersja serwera: 10.4.6-MariaDB
 -- Wersja PHP: 7.1.32
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `grades` (
-  `id` int(11) NOT NULL,
-  `value` float NOT NULL,
-  `name` text COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+                          `id` int(11) NOT NULL,
+                          `name` tinytext NOT NULL,
+                          `value` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -41,11 +41,11 @@ CREATE TABLE `grades` (
 --
 
 CREATE TABLE `students` (
-  `ind` int(11) NOT NULL,
-  `name` text COLLATE utf8_polish_ci NOT NULL,
-  `surname` text COLLATE utf8_polish_ci NOT NULL,
-  `department` text COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+                            `ind` int(11) NOT NULL,
+                            `department` tinytext NOT NULL,
+                            `name` tinytext NOT NULL,
+                            `surname` tinytext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -54,10 +54,11 @@ CREATE TABLE `students` (
 --
 
 CREATE TABLE `student_grades` (
-  `id_subject` int(11) NOT NULL,
-  `id_student` int(11) NOT NULL,
-  `id_grade` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+                                  `id` int(11) NOT NULL,
+                                  `id_grade` int(11) NOT NULL,
+                                  `id_student` int(11) NOT NULL,
+                                  `id_subject` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -66,10 +67,10 @@ CREATE TABLE `student_grades` (
 --
 
 CREATE TABLE `subjects` (
-  `id` int(11) NOT NULL,
-  `name` text COLLATE utf8_polish_ci NOT NULL,
-  `subject_manager` text COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+                            `id` int(11) NOT NULL,
+                            `name` tinytext NOT NULL,
+                            `subject_manager` tinytext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -79,27 +80,28 @@ CREATE TABLE `subjects` (
 -- Indeksy dla tabeli `grades`
 --
 ALTER TABLE `grades`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`ind`);
+    ADD PRIMARY KEY (`ind`);
 
 --
 -- Indeksy dla tabeli `student_grades`
 --
 ALTER TABLE `student_grades`
-  ADD KEY `id_grade` (`id_grade`),
-  ADD KEY `id_student` (`id_student`),
-  ADD KEY `id_subject` (`id_subject`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `STUDENT_SUBJECT_UNIQUE` (`id_subject`,`id_student`),
+    ADD KEY `FK_GRADE` (`id_grade`),
+    ADD KEY `FK_STUDENT` (`id_student`);
 
 --
 -- Indeksy dla tabeli `subjects`
 --
 ALTER TABLE `subjects`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -109,19 +111,19 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT dla tabeli `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT dla tabeli `students`
+-- AUTO_INCREMENT dla tabeli `student_grades`
 --
-ALTER TABLE `students`
-  MODIFY `ind` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `student_grades`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ograniczenia dla zrzutów tabel
@@ -131,14 +133,10 @@ ALTER TABLE `subjects`
 -- Ograniczenia dla tabeli `student_grades`
 --
 ALTER TABLE `student_grades`
-  ADD CONSTRAINT `student_grades_ibfk_1` FOREIGN KEY (`id_grade`) REFERENCES `grades` (`id`),
-  ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`id_student`) REFERENCES `students` (`ind`),
-  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`id_subject`) REFERENCES `subjects` (`id`);
+    ADD CONSTRAINT `FK_GRADE` FOREIGN KEY (`id_grade`) REFERENCES `grades` (`id`),
+    ADD CONSTRAINT `FK_STUDENT` FOREIGN KEY (`id_student`) REFERENCES `students` (`ind`) ON DELETE CASCADE,
+    ADD CONSTRAINT `FK_SUBJECT` FOREIGN KEY (`id_subject`) REFERENCES `subjects` (`id`) ON DELETE CASCADE;
 COMMIT;
-
--- Tylko jedna ocena z przedmiotu dla jednego studenta
-ALTER TABLE `student_grades`
-   ADD UNIQUE KEY `unique_student_subject` (`id_student`, `id_subject`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

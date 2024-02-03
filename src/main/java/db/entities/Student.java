@@ -1,6 +1,8 @@
 package db.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class Student {
     private String department;
 
     @OneToMany(mappedBy = "idStudent")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
 
     public Integer getId() {
