@@ -3,7 +3,7 @@ package db.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "student_grades", schema = "bazazpo")
+@Table(name = "student_grades", schema = "bazazpo", uniqueConstraints={@UniqueConstraint(name = "STUDENT_SUBJECT_UNIQUE", columnNames = {"id_subject" , "id_student"})})
 public class StudentGrade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,15 +11,15 @@ public class StudentGrade {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_subject", nullable = false)
+    @JoinColumn(name = "id_subject", nullable = false, foreignKey = @ForeignKey(name="FK_SUBJECT"))
     private Subject idSubject;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_student", nullable = false)
+    @JoinColumn(name = "id_student", nullable = false, foreignKey = @ForeignKey(name="FK_STUDENT"))
     private Student idStudent;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_grade")
+    @JoinColumn(name = "id_grade", nullable = false, foreignKey = @ForeignKey(name="FK_GRADE"))
     private Grade idGrade;
 
     public Integer getId() {
