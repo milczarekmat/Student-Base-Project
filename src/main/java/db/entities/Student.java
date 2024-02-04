@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "students", schema = "bazazpo")
-public class Student {
+public class Student implements Serializable {
     @Id
     @Column(name = "ind", nullable = false)
     private Integer id;

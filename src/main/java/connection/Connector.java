@@ -2,6 +2,7 @@ package connection;
 
 import java.io.*;
 import java.net.*;
+
 public class Connector {
 
     private static boolean loading;
@@ -18,6 +19,13 @@ public class Connector {
             connected = false;
             socket = new Socket("localhost", 8080);
             System.out.println("Connected");
+//
+//            input = new DataInputStream(System.in);
+//
+//            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+//            ArrayList<Student> receivedStudenci = (ArrayList<Student>) in.readObject();
+//            in.close();
+//            System.out.println(receivedStudenci.get(0).getName());
         }
         catch (UnknownHostException u) {
             System.out.println(u);
@@ -29,6 +37,9 @@ public class Connector {
             loading = false;
             return;
         }
+//        catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
         loading = false;
         connected = true;
     }
