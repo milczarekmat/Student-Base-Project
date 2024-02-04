@@ -30,6 +30,16 @@ public class Student {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
 
+    public Student(Integer id, String name, String surname, String department) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+    }
+
+    public Student() {
+    }
+
     public Integer getId() {
         return id;
     }
