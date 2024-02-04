@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "students", schema = "bazazpo")
-public class Student {
+public class Student implements Serializable {
     @Id
     @Column(name = "ind", nullable = false)
     private Integer id;
@@ -29,6 +30,16 @@ public class Student {
     @OneToMany(mappedBy = "idStudent")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
+
+    public Student(Integer id, String name, String surname, String department) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+    }
+
+    public Student() {
+    }
 
     public Integer getId() {
         return id;

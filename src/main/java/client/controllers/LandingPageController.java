@@ -1,5 +1,6 @@
 package client.controllers;
 
+import connection.Connector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +15,8 @@ public class LandingPageController implements Controller{
     public Button connectButton;
 
     public void logIn(ActionEvent event) throws IOException {
+        Connector.connect();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/main/mainPage.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
