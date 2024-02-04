@@ -1,11 +1,12 @@
 package client.controllers;
 
-import connection.Connector;
+import client.connection.Connector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -16,6 +17,16 @@ public class LandingPageController implements Controller{
 
     public void logIn(ActionEvent event) throws IOException {
         Connector.connect();
+
+        if (!Connector.isConnected()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd połączenia");
+            alert.setHeaderText("Wystąpił problem z połączeniem.");
+            alert.setContentText("Sprawdź ustawienia połączenia i spróbuj ponownie.");
+
+            alert.showAndWait();
+            return;
+        }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/main/mainPage.fxml"));
         Parent root = loader.load();
