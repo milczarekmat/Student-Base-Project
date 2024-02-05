@@ -55,7 +55,7 @@ CREATE TABLE `students` (
 
 CREATE TABLE `student_grades` (
                                   `id` int(11) NOT NULL,
-                                  `id_grade` int(11) NOT NULL,
+                                  `id_grade` int(11) DEFAULT NULL,
                                   `id_student` int(11) NOT NULL,
                                   `id_subject` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

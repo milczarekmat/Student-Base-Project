@@ -19,7 +19,7 @@ public class StudentGrade {
     private Student idStudent;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_grade", nullable = false, foreignKey = @ForeignKey(name="FK_GRADE"))
+    @JoinColumn(name = "id_grade", nullable = true, foreignKey = @ForeignKey(name="FK_GRADE"))
     private Grade idGrade;
 
     public Integer getId() {

@@ -4,6 +4,7 @@ import db.entities.Operations;
 import db.entities.Student;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
+import db.entities.StudentGrade;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -37,7 +38,7 @@ public class serverApp {
     }
 
     public static void handleOperation(Operations op, ObjectOutputStream output) throws IOException {
-        if(op == Operations.SHOW_STUDENTS){
+        if (op == Operations.SHOW_STUDENTS) {
             //todo: pobranie wszystkich studentow z bazy
             List<Student> allStudents = studentRepository.getAllStudents();
 
@@ -49,10 +50,10 @@ public class serverApp {
     private static void handleClient(Socket socket) {
         ObjectInputStream in;
         ObjectOutputStream out;
-        try{
+        try {
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e);
             return;
         }
@@ -66,7 +67,7 @@ public class serverApp {
 //                in.close();
 //                out.close();
 //                socket.close();
-            } catch(IOException e ){
+            } catch (IOException e) {
                 System.out.println(e);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);

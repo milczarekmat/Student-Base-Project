@@ -1,6 +1,7 @@
 package db.repositories;
 
 import db.entities.Student;
+import db.entities.StudentGrade;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -75,5 +76,29 @@ public class StudentRepository {
         }
     }
 
+    public List<Student> getAllStudentsWithGrades() {
+        List<Student> studentsWithGrades = null;
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
 
+            String jpql = "SELECT DISTINCT s FROM Student s LEFT JOIN FETCH s.studentGrades sg LEFT JOIN FETCH sg.idSubject LEFT JOIN FETCH sg.idGrade";
+            TypedQuery<Student> query = entityManager.createQuery(jpql, Student.class);
+            studentsWithGrades = query.getResultList();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        for (Student student : studentsWithGrades) {
+//            System.out.println("Student: " + student.getName() + " " + student.getSurname());
+//
+//            for (StudentGrade studentGrade : student.getStudentGrades()) {
+//                System.out.println("Subject: " + studentGrade.getIdSubject().getName());
+//                System.out.println("Grade: " + studentGrade.getIdGrade().getValue());
+//            }
+//            System.out.println();
+//        }
+        return studentsWithGrades;
+    }
 }
