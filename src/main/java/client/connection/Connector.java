@@ -93,7 +93,7 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(receivedStudenci.get(0).getName());
+        receivedStudenci.forEach(System.out::println);
     }
 
 
