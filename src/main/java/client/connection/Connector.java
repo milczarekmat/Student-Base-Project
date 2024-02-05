@@ -118,14 +118,14 @@ public class Connector {
 
     }
 
-    public void deleteStudent (Student student) {
+    public static void deleteStudent (int studentID) {
         try {
             out.writeObject(Operations.DELETE_STUDENT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            out.writeObject(student.getId());
+            out.writeObject(studentID);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
