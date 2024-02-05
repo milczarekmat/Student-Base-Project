@@ -56,9 +56,9 @@ public class serverApp {
                 System.out.println(op);
 //                handleOperation(op, out);
 
-                in.close();
-                out.close();
-                socket.close();
+//                in.close();
+//                out.close();
+//                socket.close();
             } catch(IOException e ){
                 System.out.println(e);
             } catch (ClassNotFoundException e) {

@@ -13,7 +13,7 @@ public class Connector {
 
     private static Socket socket = null;
     private static DataInputStream input = null;
-    private DataOutputStream out = null;
+    private static ObjectOutputStream out = null;
 
     public static boolean isConnected() {
         return connected;
@@ -24,6 +24,7 @@ public class Connector {
             loading = true;
             connected = false;
             socket = new Socket("localhost", 8080);
+            out =  new ObjectOutputStream(socket.getOutputStream());
             System.out.println("Connected");
 //
 //            input = new DataInputStream(System.in);
@@ -66,8 +67,9 @@ public class Connector {
     }
 
     public void getStudents() {
+        System.out.println("wyslij studentow");
         try {
-            out.writeInt(Operations.SHOW_STUDENTS.ordinal());
+            out.writeObject(Operations.SHOW_STUDENTS);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
