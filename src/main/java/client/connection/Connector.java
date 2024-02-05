@@ -14,7 +14,7 @@ public class Connector {
     private static boolean connected;
 
     private static Socket socket = null;
-    private static DataInputStream input = null;
+    private static ObjectInputStream input = null;
     private static ObjectOutputStream out = null;
 
     public static boolean isConnected() {
@@ -27,7 +27,7 @@ public class Connector {
             connected = false;
             socket = new Socket("localhost", 8080);
             out =  new ObjectOutputStream(socket.getOutputStream());
-            input = new DataInputStream(System.in);
+            input = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connected");
 //
 //
@@ -74,26 +74,14 @@ public class Connector {
             throw new RuntimeException(e);
         }
 
-        ObjectInputStream in;
         ArrayList<Student> receivedStudenci;
+
         try {
-            in = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        try {
-            receivedStudenci = (ArrayList<Student>) in.readObject();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            in.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-//        receivedStudenci.forEach(System.out::println);
+
         return receivedStudenci;
     }
 
