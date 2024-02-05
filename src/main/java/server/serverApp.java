@@ -36,7 +36,6 @@ public class serverApp {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             Student obj = new Student();
             testStudenci.add(obj);
-
             out.writeObject(testStudenci);
             out.close();
             socket.close();
