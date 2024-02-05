@@ -19,12 +19,12 @@
               </Label>
          </children>
       </FlowPane>
-      <TableView layoutX="26.0" layoutY="132.0" prefHeight="338.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="162.0">
+      <TableView fx:id="tableView" layoutX="26.0" layoutY="132.0" prefHeight="338.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="162.0">
         <columns>
-          <TableColumn prefWidth="129.0" resizable="false" text="Nr indeksu" />
-          <TableColumn minWidth="0.0" prefWidth="186.0" text="Imię" />
-            <TableColumn minWidth="0.0" prefWidth="202.0" text="Nazwisko" />
-            <TableColumn minWidth="0.0" prefWidth="233.0" text="Wydział" />
+          <TableColumn fx:id="nrIndeksuColumn" prefWidth="129.0" resizable="false" text="Nr indeksu" />
+          <TableColumn fx:id="imieColumn" minWidth="0.0" prefWidth="186.0" text="Imię" />
+            <TableColumn fx:id="nazwiskoColumn" minWidth="0.0" prefWidth="202.0" text="Nazwisko" />
+            <TableColumn fx:id="wydzialColumn" minWidth="0.0" prefWidth="233.0" text="Wydział" />
         </columns>
       </TableView>
     </children>

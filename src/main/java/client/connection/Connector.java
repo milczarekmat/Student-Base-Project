@@ -1,7 +1,11 @@
 package client.connection;
 
+import db.entities.Operations;
+import db.entities.Student;
+
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class Connector {
 
@@ -10,8 +14,8 @@ public class Connector {
     private static boolean connected;
 
     private static Socket socket = null;
-    private static DataInputStream input = null;
-    private DataOutputStream out = null;
+    private static ObjectInputStream input = null;
+    private static ObjectOutputStream out = null;
 
     public static boolean isConnected() {
         return connected;
@@ -22,14 +26,12 @@ public class Connector {
             loading = true;
             connected = false;
             socket = new Socket("localhost", 8080);
+            out =  new ObjectOutputStream(socket.getOutputStream());
+            input = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connected");
 //
-//            input = new DataInputStream(System.in);
 //
-//            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-//            ArrayList<Student> receivedStudenci = (ArrayList<Student>) in.readObject();
-//            in.close();
-//            System.out.println(receivedStudenci.get(0).getName());
+//
         }
         catch (UnknownHostException u) {
 //            System.out.println(u);
@@ -46,6 +48,55 @@ public class Connector {
 //        }
         loading = false;
         connected = true;
+    }
+
+    public void disconnect() {
+        try {
+            input.close();
+            out.close();
+            socket.close();
+        }
+        catch (IOException i) {
+            loading = false;
+            return;
+        }
+        loading = false;
+        connected = false;
+        socket = null;
+        System.out.println("Disconnected");
+    }
+
+    public ArrayList<Student> getStudents() {
+//        System.out.println("wyslij studentow");
+        try {
+            out.writeObject(Operations.SHOW_STUDENTS);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Student> receivedStudenci;
+
+        try {
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedStudenci;
+    }
+
+    public void addStudent(Student student) {
+        try {
+            out.writeObject(Operations.ADD_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(student);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

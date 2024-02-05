@@ -81,4 +81,13 @@ public class Student implements Serializable {
         this.studentGrades = studentGrades;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", department='" + department + '\'' +
+                '}';
+    }
 }

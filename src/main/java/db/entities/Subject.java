@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "subjects", schema = "bazazpo")
+@Table(name = "subjects", schema = "bazazpo", uniqueConstraints = @UniqueConstraint(name = "UNIQUE_SUBJECT_NAME", columnNames = {"name"}))
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,7 @@ public class Subject {
 
     @Lob
     @Column(name = "name", nullable = false)
+
     private String name;
 
     @Lob
@@ -26,6 +27,15 @@ public class Subject {
     @OneToMany(mappedBy = "idSubject")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
+
+    public Subject(Integer id, String name, String subjectManager) {
+        this.id = id;
+        this.name = name;
+        this.subjectManager = subjectManager;
+    }
+
+    public Subject() {
+    }
 
     public Integer getId() {
         return id;

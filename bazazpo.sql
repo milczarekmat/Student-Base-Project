@@ -125,6 +125,9 @@ ALTER TABLE `student_grades`
 ALTER TABLE `subjects`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
+
+ALTER TABLE `subjects` ADD UNIQUE `UNIQUE_SUBJECT_NAME` (`name`);
+
 --
 -- Ograniczenia dla zrzutów tabel
 --

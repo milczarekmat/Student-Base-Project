@@ -27,6 +27,13 @@ public class DbConnectionTest {
         student.setSurname("Kowalski");
         student.setDepartment("Weeia");
 
+        Student student2 = new Student();
+
+        student2.setId(240125);
+        student2.setName("Zygmunt");
+        student2.setSurname("Nowacki");
+        student2.setDepartment("Mechaniczny");
+
         Subject subject1 = new Subject();
         subject1.setName("Przyroda");
         subject1.setSubjectManager("Janosz");
@@ -55,6 +62,7 @@ public class DbConnectionTest {
         session.persist(subject1);
         session.persist(subject2);
         session.persist(student);
+        session.persist(student2);
         session.persist(grade);
 
 //        session.persist(studentGrade);
