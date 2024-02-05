@@ -66,7 +66,7 @@ public class Connector {
         System.out.println("Disconnected");
     }
 
-    public ArrayList<Student> getStudents() {
+    public void getStudents() {
         System.out.println("wyslij studentow");
         try {
             out.writeObject(Operations.SHOW_STUDENTS);
@@ -81,7 +81,6 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("s1");
         try {
             receivedStudenci = (ArrayList<Student>) in.readObject();
         } catch (IOException e) {
@@ -89,16 +88,12 @@ public class Connector {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("s2");
         try {
             in.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("s3");
-
         receivedStudenci.forEach(System.out::println);
-        return receivedStudenci;
     }
 
 
