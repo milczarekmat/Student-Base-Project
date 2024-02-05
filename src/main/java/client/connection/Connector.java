@@ -1,9 +1,11 @@
 package client.connection;
 
 import db.entities.Operations;
+import db.entities.Student;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class Connector {
 
@@ -12,7 +14,7 @@ public class Connector {
     private static boolean connected;
 
     private static Socket socket = null;
-//    private static DataInputStream input = null;
+    private static DataInputStream input = null;
     private static ObjectOutputStream out = null;
 
     public static boolean isConnected() {
@@ -25,14 +27,11 @@ public class Connector {
             connected = false;
             socket = new Socket("localhost", 8080);
             out =  new ObjectOutputStream(socket.getOutputStream());
+            input = new DataInputStream(System.in);
             System.out.println("Connected");
 //
-//            input = new DataInputStream(System.in);
 //
-//            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-//            ArrayList<Student> receivedStudenci = (ArrayList<Student>) in.readObject();
-//            in.close();
-//            System.out.println(receivedStudenci.get(0).getName());
+//
         }
         catch (UnknownHostException u) {
 //            System.out.println(u);
@@ -53,7 +52,7 @@ public class Connector {
 
     public void disconnect() {
         try {
-//            input.close();
+            input.close();
             out.close();
             socket.close();
         }
@@ -74,6 +73,27 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        ObjectInputStream in;
+        ArrayList<Student> receivedStudenci;
+        try {
+            in = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            receivedStudenci = (ArrayList<Student>) in.readObject();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            in.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(receivedStudenci.get(0).getName());
     }
 
 
