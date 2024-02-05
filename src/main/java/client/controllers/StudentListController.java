@@ -2,11 +2,13 @@ package client.controllers;
 import db.entities.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import db.repositories.StudentRepository;
+import client.connection.Connector;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +23,26 @@ public class StudentListController implements Initializable {
     public TableColumn<Student, String> wydzialColumn;
 
     public static ArrayList<Student> students = new ArrayList<>();
+    @FXML
+    private TextField indexNumberField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private ChoiceBox<String> facultyChoiceBox;
+
+    @FXML
+    private void handleAddButtonAction(ActionEvent event) {
+        int indexNumber = Integer.parseInt(indexNumberField.getText());
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String faculty = facultyChoiceBox.getValue();
+
+        Student student = new Student(indexNumber, firstName, lastName, faculty);
+        System.out.println(student);
+        Connector.addStudent(student);
+    }
 
     public static void setStudent(ArrayList<Student> s) {
         students = s;
