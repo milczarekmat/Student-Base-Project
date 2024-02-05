@@ -44,12 +44,19 @@ public class StudentListController implements Initializable {
         Connector.addStudent(student);
     }
 
+    private void setCheckBoxValues() {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll("WEEiA", "FTIMS","BiNoZ");
+        facultyChoiceBox.setItems(list);
+    }
+
     public static void setStudent(ArrayList<Student> s) {
         students = s;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setCheckBoxValues();
         if (students.size() != 0 && tableView != null) {
             ObservableList<Student> listaStudentow = FXCollections.observableArrayList(students);
 
