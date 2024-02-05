@@ -33,7 +33,7 @@ public class MenuBarController implements Controller {
 
     public void toStudentList() throws IOException {
         ArrayList<Student> students = connector.getStudents();
-//        StudentListController.setStudent(students);
+        StudentListController.setStudent(students);
 
         changeScene("/scenes/main/student/studentList.fxml");
     }

@@ -66,8 +66,8 @@ public class Connector {
         System.out.println("Disconnected");
     }
 
-    public void getStudents() {
-        System.out.println("wyslij studentow");
+    public ArrayList<Student> getStudents() {
+//        System.out.println("wyslij studentow");
         try {
             out.writeObject(Operations.SHOW_STUDENTS);
         } catch (IOException e) {
@@ -93,7 +93,8 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        receivedStudenci.forEach(System.out::println);
+//        receivedStudenci.forEach(System.out::println);
+        return receivedStudenci;
     }
 
 

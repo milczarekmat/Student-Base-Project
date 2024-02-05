@@ -14,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/client/connection/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/connection/Connector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MenuBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MenuBarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/StudentListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/StudentListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scenes/main/student/studentList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scenes/main/student/studentList.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="23-serwer-02-obsługa-komunikacji" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -143,7 +142,7 @@
         <item itemvalue="Application.serverApp" />
         <item itemvalue="Application.DbConnectionTest" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.serverApp" />
       </list>
     </recent_temporary>
   </component>

@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.util.ArrayList;
 
 public class StudentListController {
@@ -26,13 +27,13 @@ public class StudentListController {
         System.out.println("dziala2");
         if (students.size() != 0) {
             System.out.println("dziala");
-//            ObservableList<Student> listaStudentow = FXCollections.observableArrayList(students);
-//            tableView.setItems(listaStudentow);
+            ObservableList<Student> listaStudentow = FXCollections.observableArrayList(students);
+            tableView.setItems(listaStudentow);
         }
 
-//        nrIndeksuColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        imieColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        nazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-//        wydzialColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
+        nrIndeksuColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        imieColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        wydzialColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
     }
 }
