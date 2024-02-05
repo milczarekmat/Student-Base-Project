@@ -9,14 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3baafb8-bae9-441e-8011-a334c2100c2f" name="Changes" comment="Refactor struktury resources">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/main/student/deleteStudent.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/main/subject/addSubject.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/main/subject/deleteSubject.fxml" afterDir="false" />
+    <list default="true" id="a3baafb8-bae9-441e-8011-a334c2100c2f" name="Changes" comment="alert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/connection/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/connection/Connector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MenuBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MenuBarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/main/menuBar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main/menuBar.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/main/student/addStudent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main/student/addStudent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/DbConnectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/DbConnectionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scenes/landing/landingPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scenes/landing/landingPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,26 +57,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/milcz/IdeaProjects/Student Base Project/src/main/resources/main/subject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3091954",
-    "settings.editor.selected.configurable": "preferences.JavaFX",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/milcz/IdeaProjects/Student Base Project/src/main/resources/main/subject&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3091954&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\main\subject" />
@@ -93,7 +91,20 @@
       <recent name="C:\Users\milcz\IdeaProjects\Student Base Project\src\main\resources\main\student" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.DbConnectionTest">
+    <configuration name="DbConnectionTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.DbConnectionTest" />
+      <module name="student-base-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.Main" />
       <module name="student-base-project" />
@@ -107,8 +118,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="serverApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.serverApp" />
+      <module name="student-base-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.DbConnectionTest" />
+      <item itemvalue="Application.serverApp" />
+      <item itemvalue="Application.Main" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DbConnectionTest" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.serverApp" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
@@ -125,6 +157,7 @@
       <workItem from="1704540896745" duration="1170000" />
       <workItem from="1705147724784" duration="1571000" />
       <workItem from="1705153011274" duration="12601000" />
+      <workItem from="1707138748807" duration="3230000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1704541573887</created>
@@ -161,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705227403263</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="alert">
+      <created>1707079253736</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707079253736</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,19 +212,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="16-klient-widok-dodawania-i-usuwania-studenta" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -197,7 +225,8 @@
     <MESSAGE value="Dodany podstawowy layout" />
     <MESSAGE value="Dodana lista studentów i przedmiotów" />
     <MESSAGE value="Refactor struktury resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor struktury resources" />
+    <MESSAGE value="alert" />
+    <option name="LAST_COMMIT_MESSAGE" value="alert" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,5 +1,7 @@
 package client.connection;
 
+import db.entities.Operations;
+
 import java.io.*;
 import java.net.*;
 
@@ -47,5 +49,29 @@ public class Connector {
         loading = false;
         connected = true;
     }
+
+    public void disconnect() {
+        try {
+            input.close();
+            socket.close();
+        }
+        catch (IOException i) {
+            loading = false;
+            return;
+        }
+        loading = false;
+        connected = false;
+        socket = null;
+        System.out.println("Disconnected");
+    }
+
+    public void getStudents() {
+        try {
+            out.writeInt(Operations.SHOW_STUDENTS.ordinal());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
