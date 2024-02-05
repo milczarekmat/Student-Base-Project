@@ -2,14 +2,17 @@ package client.controllers;
 import db.entities.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class StudentListController {
+public class StudentListController implements Initializable {
     public MenuBar menu;
     public TableView<Student> tableView;
     public TableColumn<Student, Integer> nrIndeksuColumn;
@@ -23,17 +26,17 @@ public class StudentListController {
         students = s;
     }
 
-    public void initialize() {
-        System.out.println("dziala2");
-        if (students.size() != 0) {
-            System.out.println("dziala");
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (students.size() != 0 && tableView != null) {
             ObservableList<Student> listaStudentow = FXCollections.observableArrayList(students);
+
+            nrIndeksuColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            imieColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            nazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+            wydzialColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
+
             tableView.setItems(listaStudentow);
         }
-
-        nrIndeksuColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        imieColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        wydzialColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
     }
 }
