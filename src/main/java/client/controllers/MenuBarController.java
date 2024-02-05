@@ -1,6 +1,7 @@
 package client.controllers;
 
 import client.connection.Connector;
+import db.entities.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MenuBarController implements Controller {
     private Stage stage;
@@ -30,7 +32,9 @@ public class MenuBarController implements Controller {
     }
 
     public void toStudentList() throws IOException {
-        connector.getStudents();
+        ArrayList<Student> students = connector.getStudents();
+//        StudentListController.setStudent(students);
+
         changeScene("/scenes/main/student/studentList.fxml");
     }
 
