@@ -38,9 +38,6 @@ public class MenuBarController implements Controller {
     }
 
     public void toStudentAdd() throws IOException {
-        Student s = new Student(2, "Jan", "Kowalski", "Zaden");
-        connector.addStudent(s);
-
         changeScene("/scenes/main/student/addStudent.fxml");
     }
 

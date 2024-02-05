@@ -99,4 +99,18 @@ public class Connector {
 
     }
 
+    public void deleteStudent (Student student) {
+        try {
+            out.writeObject(Operations.DELETE_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(student.getId());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
