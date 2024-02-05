@@ -24,12 +24,8 @@ public class StudentListController {
     }
 
     public void initialize() {
-        System.out.println("dziala2");
-        if (students.size() != 0) {
-            System.out.println("dziala");
-            ObservableList<Student> listaStudentow = FXCollections.observableArrayList(students);
-            tableView.setItems(listaStudentow);
-        }
+        ObservableList<Student> listaStudentow = FXCollections.observableArrayList(students);
+        tableView.setItems(listaStudentow);
 
         nrIndeksuColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         imieColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
