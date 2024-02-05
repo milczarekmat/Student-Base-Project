@@ -1,5 +1,6 @@
 package server;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,6 +9,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import db.entities.Operations;
 import db.entities.Student;
 
 public class serverApp {
@@ -30,17 +33,39 @@ public class serverApp {
         }
     }
 
-    private static void handleClient(Socket socket) {
-        ArrayList<Student> testStudenci = new ArrayList<>();
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            Student obj = new Student();
-            testStudenci.add(obj);
-            out.writeObject(testStudenci);
-            out.close();
-            socket.close();
-        } catch(IOException e ){
-            System.out.println(e);
+    public static void handleOperation(Operations op, ObjectOutputStream output) throws IOException {
+        if(op == Operations.SHOW_STUDENTS){
+            //todo: pobranie wszystkich studentow z bazy
+//            output.writeObject(stud);
         }
     }
+
+    private static void handleClient(Socket socket) {
+        ObjectInputStream in;
+        ObjectOutputStream out;
+        try{
+            in = new ObjectInputStream(socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException e){
+            System.out.println(e);
+            return;
+        }
+        while (true) {
+            try {
+                Operations op = (Operations) in.readObject();
+                System.out.println(op);
+//                handleOperation(op, out);
+
+                in.close();
+                out.close();
+                socket.close();
+            } catch(IOException e ){
+                System.out.println(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
 }
