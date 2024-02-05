@@ -23,12 +23,6 @@
       </FlowPane>
       <FlowPane alignment="TOP_CENTER" layoutX="-7.0" layoutY="159.0" orientation="VERTICAL" prefHeight="269.0" prefWidth="687.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0">
          <children>
-<!--            <Label prefHeight="24.0" prefWidth="96.0" text="Id przedmiotu" />-->
-<!--            <TextField prefHeight="35.0" prefWidth="354.0">-->
-<!--               <FlowPane.margin>-->
-<!--                  <Insets bottom="20.0" />-->
-<!--               </FlowPane.margin>-->
-<!--            </TextField>-->
             <Label prefHeight="22.0" prefWidth="220.0" text="Nazwa przedmiotu" />
             <TextField fx:id="subjectName" prefHeight="35.0" prefWidth="354.0">
                <FlowPane.margin>
