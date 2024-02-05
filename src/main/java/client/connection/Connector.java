@@ -97,5 +97,18 @@ public class Connector {
         return receivedStudenci;
     }
 
+    public void addStudent(Student student) {
+        try {
+            out.writeObject(Operations.ADD_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(student);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

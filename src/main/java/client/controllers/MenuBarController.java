@@ -27,7 +27,6 @@ public class MenuBarController implements Controller {
     private MenuBar menuBar;
 
     public void toSubjectList() throws IOException {
-//        Connector.getSubcjexts() // wysle tobie nr 1 i zacznę słuchanie ciebie w watku -> obierasz 1 i pobierasz liste przedmiotow -> wysylacz mi -> ja odbieram i kończe sluchanie
         changeScene("/scenes/main/subject/subjectList.fxml");
     }
 
@@ -39,6 +38,9 @@ public class MenuBarController implements Controller {
     }
 
     public void toStudentAdd() throws IOException {
+        Student s = new Student(2, "Jan", "Kowalski", "Zaden");
+        connector.addStudent(s);
+
         changeScene("/scenes/main/student/addStudent.fxml");
     }
 
