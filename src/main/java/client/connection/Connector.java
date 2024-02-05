@@ -131,5 +131,19 @@ public class Connector {
         }
     }
 
+    public static void addSubject(Subject subject) {
+        try {
+            out.writeObject(Operations.ADD_SUBJECT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(subject);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
 }
