@@ -1,20 +1,23 @@
 package server;
 
-import java.io.DataInputStream;
+import db.entities.Operations;
+import db.entities.Student;
+import db.repositories.StudentRepository;
+import db.repositories.SubjectRepository;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import db.entities.Operations;
-import db.entities.Student;
-
 public class serverApp {
     private static final int MAX_CLIENTS = 3;
+    private static final StudentRepository studentRepository = new StudentRepository();
+    private static final SubjectRepository subjectRepository = new SubjectRepository();
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_CLIENTS);
@@ -36,6 +39,9 @@ public class serverApp {
     public static void handleOperation(Operations op, ObjectOutputStream output) throws IOException {
         if(op == Operations.SHOW_STUDENTS){
             //todo: pobranie wszystkich studentow z bazy
+            List<Student> allStudents = studentRepository.getAllStudents();
+
+            allStudents.forEach(System.out::println);
 //            output.writeObject(stud);
         }
     }
@@ -50,6 +56,7 @@ public class serverApp {
             System.out.println(e);
             return;
         }
+
         while (true) {
             try {
                 Operations op = (Operations) in.readObject();
