@@ -32,18 +32,16 @@ public class serverApp {
 
     private static void handleClient(Socket socket) {
         ArrayList<Student> testStudenci = new ArrayList<>();
-        while(true){
-            try {
-                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                Student obj = new Student();
-                testStudenci.add(obj);
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            Student obj = new Student();
+            testStudenci.add(obj);
 
-                out.writeObject(testStudenci);
-                out.close();
-                socket.close();
-            } catch(IOException e ){
-                System.out.println(e);
-            }
+            out.writeObject(testStudenci);
+            out.close();
+            socket.close();
+        } catch(IOException e ){
+            System.out.println(e);
         }
     }
 }
