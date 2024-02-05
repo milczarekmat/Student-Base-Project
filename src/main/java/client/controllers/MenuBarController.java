@@ -85,11 +85,10 @@ public class MenuBarController implements Controller {
         alert.setTitle("Wylogowanie");
         alert.setHeaderText("Potwierdzenie");
         alert.setContentText("Czy chcesz na pewno się wylogować?");
-
+        connector.disconnect();
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 try {
-                    connector.disconnect();
                     changeScene("/scenes/landing/landingPage.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);

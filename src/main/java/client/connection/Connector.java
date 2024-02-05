@@ -12,7 +12,7 @@ public class Connector {
     private static boolean connected;
 
     private static Socket socket = null;
-    private static DataInputStream input = null;
+//    private static DataInputStream input = null;
     private static ObjectOutputStream out = null;
 
     public static boolean isConnected() {
@@ -53,7 +53,8 @@ public class Connector {
 
     public void disconnect() {
         try {
-            input.close();
+//            input.close();
+            out.close();
             socket.close();
         }
         catch (IOException i) {
