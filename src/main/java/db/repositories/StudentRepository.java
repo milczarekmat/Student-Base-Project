@@ -101,4 +101,24 @@ public class StudentRepository {
 //        }
         return studentsWithGrades;
     }
+
+    public Student getStudentByIdWithGrades(int ind) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+
+            // Używamy LEFT JOIN FETCH, aby pobrać studenta wraz z ocenami
+            String jpql = "SELECT s FROM Student s LEFT JOIN FETCH s.studentGrades sg LEFT JOIN FETCH sg.idSubject LEFT JOIN FETCH sg.idGrade WHERE s.id = :studentId";
+            TypedQuery<Student> query = entityManager.createQuery(jpql, Student.class);
+            query.setParameter("studentId", ind);
+
+            Student student = query.getSingleResult();
+
+            entityManager.getTransaction().commit();
+
+            return student;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

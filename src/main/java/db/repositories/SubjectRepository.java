@@ -64,4 +64,26 @@ public class SubjectRepository {
 
         return subjects;
     }
+
+    public List<Subject> getSubjectsWithGrades() {
+        List<Subject> subjects = null;
+
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+
+            // Znajdź przedmioty, które mają chociaż jedną ocenę w tabeli student_grades
+            String jpql = "SELECT DISTINCT s FROM Subject s " +
+                    "JOIN FETCH s.studentGrades g " +
+                    "WHERE SIZE(s.studentGrades) > 0";
+
+            TypedQuery<Subject> query = entityManager.createQuery(jpql, Subject.class);
+            subjects = query.getResultList();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return subjects;
+    }
 }
