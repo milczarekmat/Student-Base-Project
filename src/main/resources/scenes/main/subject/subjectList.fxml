@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.StudentListController">
+<AnchorPane prefHeight="500.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.SubjectListController">
     <children>
         <fx:include fx:id="menu" source="../menuBar.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <FlowPane alignment="CENTER" layoutX="212.0" layoutY="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -19,11 +19,11 @@
               </Label>
          </children>
       </FlowPane>
-      <TableView layoutX="26.0" layoutY="132.0" prefHeight="338.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="162.0">
+      <TableView fx:id="tableView" layoutX="26.0" layoutY="132.0" prefHeight="338.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="162.0">
         <columns>
-          <TableColumn editable="false" prefWidth="128.0" resizable="false" text="Id" />
-          <TableColumn minWidth="0.0" prefWidth="289.0" text="Nazwa przedmiotu" />
-            <TableColumn minWidth="0.0" prefWidth="333.0" text="Prowadzący" />
+          <TableColumn fx:id="id" editable="false" prefWidth="128.0" resizable="false" text="Id" />
+          <TableColumn fx:id="name" minWidth="0.0" prefWidth="289.0" text="Nazwa przedmiotu" />
+            <TableColumn fx:id="teacher" minWidth="0.0" prefWidth="333.0" text="Prowadzący" />
         </columns>
       </TableView>
     </children>

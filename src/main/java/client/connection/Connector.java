@@ -2,6 +2,7 @@ package client.connection;
 
 import db.entities.Operations;
 import db.entities.Student;
+import db.entities.Subject;
 
 import java.io.*;
 import java.net.*;
@@ -83,6 +84,24 @@ public class Connector {
         }
 
         return receivedStudenci;
+    }
+
+    public ArrayList<Subject> getSubjects() {
+        try {
+            out.writeObject(Operations.SHOW_SUBJECTS);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Subject> receivedSubjects;
+
+        try {
+            receivedSubjects = (ArrayList<Subject>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedSubjects;
     }
 
     public void addStudent(Student student) {
