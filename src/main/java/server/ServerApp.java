@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class serverApp {
+public class ServerApp {
     private static final int MAX_CLIENTS = 3;
     private static final StudentRepository studentRepository = new StudentRepository();
     private static final SubjectRepository subjectRepository = new SubjectRepository();
