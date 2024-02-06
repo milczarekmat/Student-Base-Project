@@ -150,7 +150,7 @@ public class SubjectRepository {
             try {
                 StudentGrade studentGrade = query.getSingleResult();
 
-                if (newGradeValue == null) {
+                if (newGradeValue == 0f) {
                     studentGrade.setGrade(null);
                 } else {
                     String gradeJpql = "SELECT g FROM Grade g WHERE g.value = :gradeValue";

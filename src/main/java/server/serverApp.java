@@ -4,6 +4,7 @@ import client.controllers.StudentListController;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.EditGradeInfo;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
 import db.entities.StudentGrade;
@@ -84,8 +85,18 @@ public class serverApp {
         }
         else if (op == Operations.SHOW_STUDENTS_WITH_GRADES) {
             List<Student> allStudents = studentRepository.getAllStudentsWithGrades();
-            allStudents.forEach(System.out::println);
             output.writeObject(allStudents);
+        }
+        else if (op == Operations.EDIT_STUDENT_GRADE) {
+            EditGradeInfo gradeInfo = (EditGradeInfo) input.readObject();
+            subjectRepository.updateGradeForStudent(gradeInfo.getStudentId(),
+                    gradeInfo.getSubjectId(), gradeInfo.getGradeValue());
+
+            List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
+
+            allStudentsWithGrades.forEach(System.out::println);
+            output.writeObject(allStudentsWithGrades);
+
         }
     }
 

@@ -11,14 +11,13 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class ManagingController implements Initializable {
     public MenuBar menu;
 
-    public TreeView<String> treeView;
+    public TreeView<StudentGrade> treeView;
 
     public static ArrayList<Student> students = new ArrayList<>();
 
@@ -28,26 +27,36 @@ public class ManagingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        final TreeItem<String> root = new TreeItem<>("Root node");
+        final TreeItem<StudentGrade> root = new TreeItem<>(new StudentGrade());
         root.setExpanded(true);
 
 
         students.forEach(student -> {
-            String name = student.getName();
-            String surname = student.getSurname();
-            TreeItem<String> parentItem = new TreeItem<>(name + " " + surname);
+
+            List<StudentGrade> studentGrades = student.getStudentGrades().stream().toList()
+                    .stream().filter(sg -> Objects.equals(student.getId(), sg.getStudent().getId())).toList();
+
+            TreeItem<StudentGrade> parentItem;
+            if (studentGrades.size() == 0) {
+                StudentGrade studentGrade = new StudentGrade();
+                studentGrade.setStudent(student);
+                parentItem = new TreeItem<>(studentGrade);
+            } else {
+                StudentGrade singleStudentGrade = studentGrades.get(0);
+                parentItem = new TreeItem<>(singleStudentGrade);
+            }
+
             root.getChildren().add(parentItem);
 
-            Set<StudentGrade> studentGrades = student.getStudentGrades();
 
             if (studentGrades.size() == 0) {
-                parentItem.getChildren().add(new TreeItem<>("no grades"));
+                parentItem.getChildren().add(new TreeItem<>(new StudentGrade()));
             } else {
                 studentGrades.forEach(item -> {
                     Grade grade = item.getGrade();
                     Subject subject = item.getSubject();
 
-                    TreeItem<String> childItem = new TreeItem<>(subject.getName() + "    " + grade.getValue());
+                    TreeItem<StudentGrade> childItem = new TreeItem<>(item);
 
                     parentItem.getChildren().add(childItem);
                 });

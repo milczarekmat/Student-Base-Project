@@ -3,6 +3,7 @@ package client.connection;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.EditGradeInfo;
 
 import java.io.*;
 import java.net.*;
@@ -103,6 +104,19 @@ public class Connector {
         return receivedStudenci;
     }
 
+    public static ArrayList<Student> getStudentsWithGradesWithoutNotification() {
+
+        ArrayList<Student> receivedStudenci;
+
+        try {
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedStudenci;
+    }
+
     public ArrayList<Subject> getSubjects() {
         try {
             out.writeObject(Operations.SHOW_SUBJECTS);
@@ -156,6 +170,20 @@ public class Connector {
         }
         try {
             out.writeObject(subject);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void editGradeForStudent(EditGradeInfo pack) {
+        try {
+            out.writeObject(Operations.EDIT_STUDENT_GRADE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(pack);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
