@@ -2,6 +2,7 @@ package client.connection;
 
 import db.entities.Operations;
 import db.entities.Student;
+import db.entities.Subject;
 
 import java.io.*;
 import java.net.*;
@@ -14,7 +15,7 @@ public class Connector {
     private static boolean connected;
 
     private static Socket socket = null;
-    private static DataInputStream input = null;
+    private static ObjectInputStream input = null;
     private static ObjectOutputStream out = null;
 
     public static boolean isConnected() {
@@ -27,7 +28,7 @@ public class Connector {
             connected = false;
             socket = new Socket("localhost", 8080);
             out =  new ObjectOutputStream(socket.getOutputStream());
-            input = new DataInputStream(System.in);
+            input = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connected");
 //
 //
@@ -66,34 +67,82 @@ public class Connector {
         System.out.println("Disconnected");
     }
 
-    public void getStudents() {
-        System.out.println("wyslij studentow");
+    public ArrayList<Student> getStudents() {
+//        System.out.println("wyslij studentow");
         try {
             out.writeObject(Operations.SHOW_STUDENTS);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        ObjectInputStream in;
         ArrayList<Student> receivedStudenci;
+
         try {
-            in = new ObjectInputStream(socket.getInputStream());
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedStudenci;
+    }
+
+    public ArrayList<Subject> getSubjects() {
+        try {
+            out.writeObject(Operations.SHOW_SUBJECTS);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Subject> receivedSubjects;
+
+        try {
+            receivedSubjects = (ArrayList<Subject>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedSubjects;
+    }
+
+    public static void addStudent(Student student) {
+        try {
+            out.writeObject(Operations.ADD_STUDENT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            receivedStudenci = (ArrayList<Student>) in.readObject();
+            out.writeObject(student);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        }
+
+    }
+
+    public static void deleteStudent (int studentID) {
+        try {
+            out.writeObject(Operations.DELETE_STUDENT);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            in.close();
+            out.writeObject(studentID);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(receivedStudenci.get(0).getName());
+    }
+
+    public static void addSubject(Subject subject) {
+        try {
+            out.writeObject(Operations.ADD_SUBJECT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(subject);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

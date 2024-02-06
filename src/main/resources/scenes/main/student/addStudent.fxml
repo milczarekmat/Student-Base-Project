@@ -25,30 +25,30 @@
       <FlowPane alignment="TOP_CENTER" layoutX="3.0" layoutY="159.0" orientation="VERTICAL" prefHeight="313.0" prefWidth="702.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label prefHeight="24.0" prefWidth="68.0" text="Nr indeksu" />
-            <TextField prefHeight="35.0" prefWidth="354.0">
+            <TextField fx:id="indexNumberField" prefHeight="35.0" prefWidth="354.0">
                <FlowPane.margin>
                   <Insets bottom="20.0" />
                </FlowPane.margin>
             </TextField>
             <Label prefHeight="22.0" prefWidth="125.0" text="Imię studenta" />
-            <TextField prefHeight="35.0" prefWidth="354.0">
+            <TextField fx:id="firstNameField" prefHeight="35.0" prefWidth="354.0">
                <FlowPane.margin>
                   <Insets bottom="20.0" />
                </FlowPane.margin>
             </TextField>
             <Label prefHeight="22.0" prefWidth="114.0" text="Nazwisko studenta" />
-            <TextField prefHeight="35.0" prefWidth="354.0">
+            <TextField fx:id="lastNameField" prefHeight="35.0" prefWidth="354.0">
                <FlowPane.margin>
                   <Insets bottom="20.0" />
                </FlowPane.margin>
             </TextField>
             <Label prefHeight="17.0" prefWidth="59.0" text="Wydział" />
-            <ChoiceBox prefHeight="35.0" prefWidth="354.0" />
+            <ChoiceBox fx:id="facultyChoiceBox" prefHeight="35.0" prefWidth="354.0" />
          </children>
       </FlowPane>
       <VBox alignment="TOP_CENTER" layoutY="481.0" prefHeight="41.0" prefWidth="689.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="183.0" text="Dodaj" />
+            <Button onAction="#handleAddButtonAction" mnemonicParsing="false" prefHeight="41.0" prefWidth="183.0" text="Dodaj" />
          </children>
       </VBox>
     </children>

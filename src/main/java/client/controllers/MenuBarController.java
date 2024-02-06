@@ -1,6 +1,8 @@
 package client.controllers;
 
 import client.connection.Connector;
+import db.entities.Student;
+import db.entities.Subject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MenuBarController implements Controller {
     private Stage stage;
@@ -25,12 +28,16 @@ public class MenuBarController implements Controller {
     private MenuBar menuBar;
 
     public void toSubjectList() throws IOException {
-//        Connector.getSubcjexts() // wysle tobie nr 1 i zacznę słuchanie ciebie w watku -> obierasz 1 i pobierasz liste przedmiotow -> wysylacz mi -> ja odbieram i kończe sluchanie
+        ArrayList<Subject> subjects = connector.getSubjects();
+        SubjectListController.setSubjects(subjects);
+
         changeScene("/scenes/main/subject/subjectList.fxml");
     }
 
     public void toStudentList() throws IOException {
-        connector.getStudents();
+        ArrayList<Student> students = connector.getStudents();
+        StudentListController.setStudent(students);
+
         changeScene("/scenes/main/student/studentList.fxml");
     }
 
@@ -85,10 +92,11 @@ public class MenuBarController implements Controller {
         alert.setTitle("Wylogowanie");
         alert.setHeaderText("Potwierdzenie");
         alert.setContentText("Czy chcesz na pewno się wylogować?");
-        connector.disconnect();
+
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                try {
+                connector.disconnect();
+               try {
                     changeScene("/scenes/landing/landingPage.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
