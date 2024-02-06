@@ -305,7 +305,14 @@ public class Connector {
         }
         Set<StudentGrade> student;
         try {
-            student = (Set<StudentGrade>) input.readObject();
+            Student st = (Student) input.readObject();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Wyświetlanie ocen");
+            alert.setContentText("Oceny: " + st.getName()+ " " + st.getSurname() + " " + st.getId());
+
+            alert.showAndWait();
+            student = st.getStudentGrades();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

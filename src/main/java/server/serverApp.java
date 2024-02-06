@@ -140,9 +140,11 @@ public class serverApp {
             case FIND_STUDENT:
                 Integer idx = (Integer) input.readObject();
                 Student student = studentRepository.getStudentByIdWithGrades(idx);
-                System.out.println("dupa " + idx + " " + student.getStudentGrades().size());
+                if(student == null){
+                    student = new Student(idx, "Brak studenta","o indeksie:", "Brak");
+                }
                 student.getStudentGrades().forEach(System.out::println);
-                output.writeObject(student.getStudentGrades());
+                output.writeObject(student);
                 break;
             default:
                 System.out.println("Nieznana operacja");
