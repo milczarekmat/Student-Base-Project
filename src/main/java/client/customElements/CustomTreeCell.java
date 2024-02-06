@@ -6,7 +6,9 @@ import client.controllers.MenuBarController;
 import db.entities.Grade;
 import db.entities.Student;
 import db.entities.StudentGrade;
+import db.entities.Subject;
 import db.helperClasses.EditGradeInfo;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,13 +20,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class CustomTreeCell extends TreeCell<StudentGrade> {
     @Override
     protected void updateItem(StudentGrade item, boolean empty) {
         super.updateItem(item, empty);
-
-        TreeItem<StudentGrade> currentItem = getTreeItem();
 
         if (isEmpty()) {
             setGraphic(null);
@@ -55,7 +57,7 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                 subjectLabel.setMinWidth(200);
                 cellBox.getChildren().addAll(deleteSubjectBtn, subjectLabel, gradeLabel, changeGradeBtn);
 
-                // przycisk od zmiany oceny
+                // Przycisk od zmiany oceny
                 changeGradeBtn.setOnAction(event -> {
                     Dialog<String> dialog = new Dialog<>();
                     dialog.setTitle("Zmiana oceny");
@@ -95,34 +97,28 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                         ArrayList<Student> students = Connector.getStudentsWithGradesWithoutNotification();
                         ManagingController.setStudents(students);
 
-                        Node sourceNode = (Node) event.getSource();
-                        Stage primaryStage = (Stage) sourceNode.getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/main/menuBar.fxml"));
-
-                        Parent root;
-                        try {
-                            root = loader.load();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        MenuBarController menuBarController = loader.getController();
-                        Scene scene = new Scene(root);
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
-
-                        try {
-                            menuBarController.toManaging();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-
+                        reloadView(event);
                     });
                 });
 
+                // Przycisk od usuwania przedmiotu
                 deleteSubjectBtn.setOnAction(event -> {
-                    System.out.println("Kliknięto przycisk usun przedmiot" + currentItem.getValue() + currentItem.getParent().getValue());
-//                  TODO do zrobienia alert czy na pewno oraz wyslanie zadania usuwania do serwera
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Potwierdzenie usunięcia");
+                    alert.setHeaderText("Czy na pewno chcesz usunąć ten przedmiot dla studenta?");
+                    alert.setContentText("Usunięcie przedmiotu spowoduje usunięcie związanej z nim oceny.");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        EditGradeInfo pack = new EditGradeInfo(item.getStudent().getId(), item.getSubject().getId(), 0);
+
+                        Connector.removeSubjectForStudent(pack);
+
+                        ArrayList<Student> students = Connector.getStudentsWithGradesWithoutNotification();
+                        ManagingController.setStudents(students);
+
+                        reloadView(event);
+                    }
                 });
 
                 setGraphic(cellBox);
@@ -136,9 +132,40 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
 
                 cellBox.getChildren().addAll(addSubjectBtn);
 
+                // Przycisk od dodawania przedmiotu
                 addSubjectBtn.setOnAction(event -> {
-                    System.out.println("Kliknięto przycisk dodaj przedmiot" + currentItem.getValue());
-//                  TODO do wyswietlania modal z formularzem dodania przedmiotu (wybor z listy dostepnych) i obsluga do serwera
+                    Dialog<String> dialog = new Dialog<>();
+                    dialog.setTitle("Dodawanie przedmiotu dla studenta");
+
+                    ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+                    dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
+
+                    ComboBox<String> subjectComboBox = new ComboBox<>();
+
+                    ArrayList<Subject> subjects = Connector.getSubjects();
+                    List<String> subjectNames = subjects.stream().map(Subject::getName).toList();
+
+                    subjectNames.forEach(name -> subjectComboBox.getItems().add(name));
+
+                    VBox layout = new VBox(14);
+                    layout.getChildren().addAll(new Label("Dodaj przedmiot dla: " + " "
+                            + item.getStudent().getName() + " " +  item.getStudent().getSurname() + " " + item.getStudent().getId()), subjectComboBox);
+                    dialog.getDialogPane().setContent(layout);
+
+
+                    dialog.setResultConverter(dialogButton -> {
+                        if (dialogButton == okButtonType) {
+                            return subjectComboBox.getValue();
+                        }
+                        return null;
+                    });
+
+                    dialog.showAndWait().ifPresent(result -> {
+                        System.out.println("Wybrano nowy przedmiot: " + result);
+
+                        // TODO obsluga do serwera
+                    });
+
                 });
 
                 setGraphic(cellBox);
@@ -146,6 +173,30 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                 Student student = item.getStudent();
                 setText(student.getName() + " " + student.getSurname() + " " + student.getId());
             }
+        }
+    }
+
+    private void reloadView(ActionEvent event) {
+        Node sourceNode = (Node) event.getSource();
+        Stage primaryStage = (Stage) sourceNode.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/main/menuBar.fxml"));
+
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        MenuBarController menuBarController = loader.getController();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        try {
+            menuBarController.toManaging();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

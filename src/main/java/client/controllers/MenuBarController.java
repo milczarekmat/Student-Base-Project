@@ -28,7 +28,7 @@ public class MenuBarController implements Controller {
     private MenuBar menuBar;
 
     public void toSubjectList() throws IOException {
-        ArrayList<Subject> subjects = connector.getSubjects();
+        ArrayList<Subject> subjects = Connector.getSubjects();
         SubjectListController.setSubjects(subjects);
 
         changeScene("/scenes/main/subject/subjectList.fxml");

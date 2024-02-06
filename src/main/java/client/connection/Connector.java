@@ -117,7 +117,7 @@ public class Connector {
         return receivedStudenci;
     }
 
-    public ArrayList<Subject> getSubjects() {
+    public static ArrayList<Subject> getSubjects() {
         try {
             out.writeObject(Operations.SHOW_SUBJECTS);
         } catch (IOException e) {
@@ -179,6 +179,20 @@ public class Connector {
     public static void editGradeForStudent(EditGradeInfo pack) {
         try {
             out.writeObject(Operations.EDIT_STUDENT_GRADE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(pack);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void removeSubjectForStudent(EditGradeInfo pack) {
+        try {
+            out.writeObject(Operations.REMOVE_SUBJECT_FOR_STUDENT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

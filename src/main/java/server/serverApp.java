@@ -94,9 +94,17 @@ public class serverApp {
 
             List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
 
-            allStudentsWithGrades.forEach(System.out::println);
             output.writeObject(allStudentsWithGrades);
 
+        }
+        else if (op == Operations.REMOVE_SUBJECT_FOR_STUDENT) {
+            EditGradeInfo gradeInfo = (EditGradeInfo) input.readObject();
+            subjectRepository.removeSubjectForStudent(gradeInfo.getStudentId(),
+                    gradeInfo.getSubjectId());
+
+            List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
+
+            output.writeObject(allStudentsWithGrades);
         }
     }
 
