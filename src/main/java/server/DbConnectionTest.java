@@ -42,9 +42,35 @@ public class DbConnectionTest {
         subject2.setName("Matematyka");
         subject2.setSubjectManager("Welfle");
 
-        Grade grade = new Grade();
-        grade.setName("Dostateczny");
-        grade.setValue(3f);
+
+        Grade gradeTwo = new Grade();
+        gradeTwo.setName("Niedostateczny");
+        gradeTwo.setValue(2f);
+
+        Grade gradeThree = new Grade();
+        gradeThree.setName("Dostateczny");
+        gradeThree.setValue(3f);
+
+        Grade gradeThreePlus = new Grade();
+        gradeThreePlus.setName("Dostateczny plus");
+        gradeThreePlus.setValue(3.5F);
+
+        Grade gradeFour = new Grade();
+        gradeFour.setName("Dobry");
+        gradeFour.setValue(4f);
+
+        Grade gradeFourPlus = new Grade();
+        gradeFourPlus.setName("Dobry plus");
+        gradeFourPlus.setValue(4.5F);
+
+        Grade gradeFive = new Grade();
+        gradeFive.setName("Bardzo dobry");
+        gradeFive.setValue(5f);
+
+        StudentGrade firstStudentGrade = new StudentGrade();
+        firstStudentGrade.setGrade(gradeThree);
+        firstStudentGrade.setStudent(student);
+        firstStudentGrade.setSubject(subject1);
 
 //        Grade grade = session.find(Grade.class, 1);
 //        Student student = session.find(Student.class, 240885);
@@ -63,7 +89,15 @@ public class DbConnectionTest {
         session.persist(subject2);
         session.persist(student);
         session.persist(student2);
-        session.persist(grade);
+
+        session.persist(gradeTwo);
+        session.persist(gradeThree);
+        session.persist(gradeThreePlus);
+        session.persist(gradeFour);
+        session.persist(gradeFourPlus);
+        session.persist(gradeFive);
+
+        session.persist(firstStudentGrade);
 
 //        session.persist(studentGrade);
 //        session.remove(student);

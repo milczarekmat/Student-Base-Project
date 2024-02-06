@@ -2,6 +2,7 @@ package client.controllers;
 
 import client.connection.Connector;
 import db.entities.Student;
+import db.entities.StudentGrade;
 import db.entities.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,8 +24,8 @@ public class SubjectListController implements Initializable {
     public TableColumn<Subject, String> name;
     public TableColumn<Subject, String> teacher;
     public static ArrayList<Subject> subjects = new ArrayList<>();
-    @FXML
-    private TextField deletedSubjectName;
+
+    public static ArrayList<Pair<String, Float>> studentsGrades = new ArrayList<>();
 
     @FXML
     private TextField subjectName;
@@ -49,23 +51,6 @@ public class SubjectListController implements Initializable {
         alert.showAndWait();
         subjectTeacher.clear();
         subjectName.clear();
-    }
-
-    @FXML
-    private void handleDeleteButtonAction(ActionEvent event) {
-        String name = deletedSubjectName.getText();
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Potwierdzenie usuniecia");
-        alert.setHeaderText("Potwierdzenie");
-        alert.setContentText("Czy chcesz żeby na pewno usunąć przedmiot " + name + "?");
-
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                Connector.deleteSubject(name);
-                deletedSubjectName.clear();
-            }
-        });
     }
 
     public static void setSubjects(ArrayList<Subject> s)  {

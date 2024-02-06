@@ -2,6 +2,7 @@ package client.controllers;
 
 import client.connection.Connector;
 import db.entities.Student;
+import db.entities.StudentGrade;
 import db.entities.Subject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +63,9 @@ public class MenuBarController implements Controller {
     }
 
     public void toMeanList() throws IOException {
+        ArrayList<Subject> studentGrades = Connector.getStudentGrades();
+
+
         changeScene("/scenes/main/subject/subjectMeanList.fxml");
     }
 
