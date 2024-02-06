@@ -81,6 +81,7 @@ public class serverApp {
                 break;
             case GET_SUBJECTS_WITH_GRADES:
                 List<Subject> subjects = subjectRepository.getSubjectsWithGrades();
+                subjects.forEach(System.out::println);
                 output.writeObject(subjects);
                 break;
             default:

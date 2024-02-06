@@ -63,9 +63,7 @@ public class MenuBarController implements Controller {
     }
 
     public void toMeanList() throws IOException {
-        ArrayList<Subject> studentGrades = Connector.getStudentGrades();
-
-
+        Connector.getStudentGrades();
         changeScene("/scenes/main/subject/subjectMeanList.fxml");
     }
 

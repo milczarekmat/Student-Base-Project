@@ -21,15 +21,6 @@ public class Subject implements Serializable {
 
     private String name;
 
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", subjectManager='" + subjectManager + '\'' +
-                '}';
-    }
-
     @Lob
     @Column(name = "subject_manager", nullable = false)
     private String subjectManager;
@@ -83,7 +74,16 @@ public class Subject implements Serializable {
         this.studentGrades = studentGrades;
     }
 
-//    public void countMean() {
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", subjectManager='" + subjectManager + '\'' +
+                '}';
+    }
+
+    //    public void countMean() {
 //        Float sum = (float) 0;
 //        int count = 0;
 //        for(StudentGrade grade : studentGrades) {
