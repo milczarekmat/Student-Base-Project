@@ -38,6 +38,10 @@ public class Subject implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
 
+//    @Lob
+//    @Column(name = "mean", nullable = false)
+//    private Float mean;
+
     public Subject(Integer id, String name, String subjectManager) {
         this.id = id;
         this.name = name;
@@ -78,5 +82,19 @@ public class Subject implements Serializable {
     public void setStudentGrades(Set<StudentGrade> studentGrades) {
         this.studentGrades = studentGrades;
     }
+
+//    public void countMean() {
+//        Float sum = (float) 0;
+//        int count = 0;
+//        for(StudentGrade grade : studentGrades) {
+//            sum += grade.getGrade().getValue();
+//            count++;
+//        }
+//        mean = sum / count;
+//    }
+//
+//    public Float getMean() {
+//        return mean;
+//    }
 
 }

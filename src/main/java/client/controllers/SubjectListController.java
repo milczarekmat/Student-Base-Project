@@ -1,7 +1,6 @@
 package client.controllers;
 
 import client.connection.Connector;
-import db.entities.Student;
 import db.entities.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +14,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class SubjectListController implements Initializable {
+public class SubjectListController implements Controller, Initializable {
     public MenuBar menu;
     public TableView<Subject> tableView;
     public TableColumn<Subject, Integer> id;
     public TableColumn<Subject, String> name;
     public TableColumn<Subject, String> teacher;
     public static ArrayList<Subject> subjects = new ArrayList<>();
+
+
+    @FXML
+    private TextField deletedSubjectName;
 
     @FXML
     private TextField subjectName;
@@ -47,6 +50,23 @@ public class SubjectListController implements Initializable {
         alert.showAndWait();
         subjectTeacher.clear();
         subjectName.clear();
+    }
+
+    @FXML
+    private void handleDeleteButtonAction(ActionEvent event) {
+        String name = deletedSubjectName.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potwierdzenie usuniecia");
+        alert.setHeaderText("Potwierdzenie");
+        alert.setContentText("Czy chcesz żeby na pewno usunąć przedmiot " + name + "?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Connector.deleteSubject(name);
+                deletedSubjectName.clear();
+            }
+        });
     }
 
     public static void setSubjects(ArrayList<Subject> s)  {

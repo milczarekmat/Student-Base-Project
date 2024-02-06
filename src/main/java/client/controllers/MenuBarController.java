@@ -3,6 +3,7 @@ package client.controllers;
 import client.connection.Connector;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.SubjectMeanInfo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,6 +63,10 @@ public class MenuBarController implements Controller {
     }
 
     public void toMeanList() throws IOException {
+        ArrayList<SubjectMeanInfo> gradesWithMeans = Connector.getStudentGrades();
+        SubjectMeanController.setSubjectsWithMeans(gradesWithMeans);
+
+
         changeScene("/scenes/main/subject/subjectMeanList.fxml");
     }
 

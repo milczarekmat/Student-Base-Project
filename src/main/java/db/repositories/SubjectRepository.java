@@ -76,6 +76,7 @@ public class SubjectRepository {
 
             String jpql = "SELECT DISTINCT s FROM Subject s " +
                     "JOIN FETCH s.studentGrades g " +
+                    "LEFT JOIN FETCH g.grade " +
                     "WHERE SIZE(s.studentGrades) > 0";
 
             TypedQuery<Subject> query = entityManager.createQuery(jpql, Subject.class);
