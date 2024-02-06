@@ -22,6 +22,8 @@ public class SubjectListController implements Initializable {
     public TableColumn<Subject, String> name;
     public TableColumn<Subject, String> teacher;
     public static ArrayList<Subject> subjects = new ArrayList<>();
+    @FXML
+    private TextField deletedSubjectName;
 
     @FXML
     private TextField subjectName;
@@ -47,6 +49,23 @@ public class SubjectListController implements Initializable {
         alert.showAndWait();
         subjectTeacher.clear();
         subjectName.clear();
+    }
+
+    @FXML
+    private void handleDeleteButtonAction(ActionEvent event) {
+        String name = deletedSubjectName.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potwierdzenie usuniecia");
+        alert.setHeaderText("Potwierdzenie");
+        alert.setContentText("Czy chcesz żeby na pewno usunąć przedmiot " + name + "?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Connector.deleteSubject(name);
+                deletedSubjectName.clear();
+            }
+        });
     }
 
     public static void setSubjects(ArrayList<Subject> s)  {

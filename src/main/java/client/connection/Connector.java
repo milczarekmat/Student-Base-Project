@@ -138,6 +138,21 @@ public class Connector {
         }
     }
 
+    public static void deleteSubject(String subjectName) {
+        try {
+            out.writeObject(Operations.DELETE_SUBJECT);
+        }
+        catch (IOException e) {
+            printConnectionLost();
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(subjectName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void addSubject(Subject subject) {
         try {
             out.writeObject(Operations.ADD_SUBJECT);
@@ -150,7 +165,6 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
     public static void printConnectionLost(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
