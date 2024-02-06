@@ -6,6 +6,7 @@ import db.entities.Student;
 import db.entities.Subject;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
+import db.entities.StudentGrade;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -86,10 +87,10 @@ public class serverApp {
     private static void handleClient(Socket socket) {
         ObjectInputStream in;
         ObjectOutputStream out;
-        try{
+        try {
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e);
             return;
         }

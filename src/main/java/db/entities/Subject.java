@@ -34,7 +34,7 @@ public class Subject implements Serializable {
     @Column(name = "subject_manager", nullable = false)
     private String subjectManager;
 
-    @OneToMany(mappedBy = "idSubject")
+    @OneToMany(mappedBy = "subject")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
 

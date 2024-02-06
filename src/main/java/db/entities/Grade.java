@@ -20,7 +20,7 @@ public class Grade {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "idGrade")
+    @OneToMany(mappedBy = "grade")
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
 
     public Integer getId() {

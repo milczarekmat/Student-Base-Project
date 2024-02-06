@@ -27,7 +27,7 @@ public class Student implements Serializable {
     @Column(name = "department", nullable = false)
     private String department;
 
-    @OneToMany(mappedBy = "idStudent")
+    @OneToMany(mappedBy = "student")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<StudentGrade> studentGrades = new LinkedHashSet<>();
 

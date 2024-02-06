@@ -8,5 +8,6 @@ public enum Operations {
     ADD_SUBJECT,
     DELETE_SUBJECT,
     COUNT_AVERAGE,
-    MODIFY_DATA
+    MODIFY_DATA,
+    FIND_STUDENT
 }
