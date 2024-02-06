@@ -10,7 +10,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 public class Connector {
-
+    //todo: DOPISAĆ WYWALENIE BŁEDU O BRKAU POLACZENIA Z SERWEREM DO KAZDEJ FUNKCJI
     private static boolean loading;
 
     private static boolean connected;
