@@ -3,11 +3,13 @@ package client.connection;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.SubjectMeanInfo;
 import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Connector {
     //todo: DOPISAĆ WYWALENIE BŁEDU O BRKAU POLACZENIA Z SERWEREM DO KAZDEJ FUNKCJI
@@ -138,7 +140,7 @@ public class Connector {
         }
     }
 
-    public static ArrayList<Subject> getStudentGrades() {
+    public static ArrayList<SubjectMeanInfo> getStudentGrades() {
         try {
             out.writeObject(Operations.GET_SUBJECTS_WITH_GRADES);
         } catch (IOException e) {
@@ -146,9 +148,9 @@ public class Connector {
             throw new RuntimeException(e);
         }
 
-        ArrayList<Subject> receivedSubjects;
+        ArrayList<SubjectMeanInfo> receivedSubjects;
         try {
-            receivedSubjects = (ArrayList<Subject>) input.readObject();
+            receivedSubjects = (ArrayList<SubjectMeanInfo>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

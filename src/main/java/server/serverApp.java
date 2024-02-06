@@ -1,18 +1,19 @@
 package server;
 
-import client.controllers.StudentListController;
+import db.entities.Grade;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.SubjectMeanInfo;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
-import db.entities.StudentGrade;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -81,7 +82,24 @@ public class serverApp {
                 break;
             case GET_SUBJECTS_WITH_GRADES:
                 List<Subject> subjects = subjectRepository.getSubjectsWithGrades();
-                output.writeObject(subjects);
+
+                List<SubjectMeanInfo> subjectsWithMeans = new ArrayList<>();
+
+                subjects.forEach(subject -> {
+                    String subjectName = subject.getName();
+                    final Float[] mean = {0f};
+                    subject.getStudentGrades().forEach(studentGrade -> {
+                        Grade grade = studentGrade.getGrade();
+                        if (grade != null) {
+                            mean[0] += grade.getValue();
+                        }
+                    });
+                    mean[0] /= subject.getStudentGrades().size();
+
+                    subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0]));
+                });
+
+                output.writeObject(subjectsWithMeans);
                 break;
             default:
                 System.out.println("Nieznana operacja");
@@ -109,7 +127,7 @@ public class serverApp {
 //                in.close();
 //                out.close();
 //                socket.close();
-            } catch(IOException e ){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
