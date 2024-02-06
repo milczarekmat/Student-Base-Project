@@ -7,7 +7,7 @@ import db.entities.Grade;
 import db.entities.Student;
 import db.entities.StudentGrade;
 import db.entities.Subject;
-import db.helperClasses.EditGradeInfo;
+import db.helperClasses.ManageInfo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -45,17 +45,20 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                 Grade grade = item.getGrade();
 
                 Label gradeLabel;
+                Label gradeFullNameLabel;
                 if (grade == null) {
                     gradeLabel = new Label("Brak oceny");
+                    gradeFullNameLabel = new Label(null);
                 } else {
                     gradeLabel = new Label(String.valueOf(grade.getValue()));
+                    gradeFullNameLabel = new Label(grade.getName());
                 }
                 Button changeGradeBtn = new Button("Zmień ocenę");
                 Button deleteSubjectBtn = new Button("-");
 
                 subjectLabel.prefWidth(200);
                 subjectLabel.setMinWidth(200);
-                cellBox.getChildren().addAll(deleteSubjectBtn, subjectLabel, gradeLabel, changeGradeBtn);
+                cellBox.getChildren().addAll(deleteSubjectBtn, subjectLabel, gradeFullNameLabel, gradeLabel, changeGradeBtn);
 
                 // Przycisk od zmiany oceny
                 changeGradeBtn.setOnAction(event -> {
@@ -66,7 +69,7 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                     dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
 
                     ComboBox<String> gradeComboBox = new ComboBox<>();
-                    gradeComboBox.getItems().addAll(String.valueOf(3f), String.valueOf(3.5f),
+                    gradeComboBox.getItems().addAll(String.valueOf(2f), String.valueOf(3f), String.valueOf(3.5f),
                             String.valueOf(4f), String.valueOf(4.5f), String.valueOf(5f), "Brak oceny");
 
                     VBox layout = new VBox(10);
@@ -91,10 +94,10 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                             resultFloat = Float.parseFloat(result);
                         }
 
-                        EditGradeInfo pack = new EditGradeInfo(item.getStudent().getId(), item.getSubject().getId(), resultFloat);
+                        ManageInfo pack = new ManageInfo(item.getStudent().getId(), item.getSubject().getId(), resultFloat);
                         Connector.editGradeForStudent(pack);
 
-                        ArrayList<Student> students = Connector.getStudentsWithGradesWithoutNotification();
+                        ArrayList<Student> students = Connector.getStudentsWithGradesWithoutServerNotification();
                         ManagingController.setStudents(students);
 
                         reloadView(event);
@@ -110,11 +113,11 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
-                        EditGradeInfo pack = new EditGradeInfo(item.getStudent().getId(), item.getSubject().getId(), 0);
+                        ManageInfo pack = new ManageInfo(item.getStudent().getId(), item.getSubject().getId(), 0);
 
                         Connector.removeSubjectForStudent(pack);
 
-                        ArrayList<Student> students = Connector.getStudentsWithGradesWithoutNotification();
+                        ArrayList<Student> students = Connector.getStudentsWithGradesWithoutServerNotification();
                         ManagingController.setStudents(students);
 
                         reloadView(event);
@@ -130,7 +133,22 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
 
                 HBox.setMargin(addSubjectBtn, new javafx.geometry.Insets(0, 25, 0, 0));
 
-                cellBox.getChildren().addAll(addSubjectBtn);
+                // uzyskiwanie nazw przedmiotow, ktore nie zostaly jeszcze dodane dla studenta
+                ArrayList<Subject> subjects = Connector.getSubjects();
+                List<String> subjectNames = subjects.stream()
+                        .filter(subject -> {
+                            for (StudentGrade studentGrade : item.getStudent().getStudentGrades()) {
+                                if (subject.getName().equals(studentGrade.getSubject().getName())) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        })
+                        .map(Subject::getName).toList();
+
+                if (subjectNames.size() > 0) {
+                    cellBox.getChildren().addAll(addSubjectBtn);
+                }
 
                 // Przycisk od dodawania przedmiotu
                 addSubjectBtn.setOnAction(event -> {
@@ -142,14 +160,11 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
 
                     ComboBox<String> subjectComboBox = new ComboBox<>();
 
-                    ArrayList<Subject> subjects = Connector.getSubjects();
-                    List<String> subjectNames = subjects.stream().map(Subject::getName).toList();
-
                     subjectNames.forEach(name -> subjectComboBox.getItems().add(name));
 
                     VBox layout = new VBox(14);
                     layout.getChildren().addAll(new Label("Dodaj przedmiot dla: " + " "
-                            + item.getStudent().getName() + " " +  item.getStudent().getSurname() + " " + item.getStudent().getId()), subjectComboBox);
+                            + item.getStudent().getName() + " " + item.getStudent().getSurname() + " " + item.getStudent().getId()), subjectComboBox);
                     dialog.getDialogPane().setContent(layout);
 
 
@@ -163,7 +178,21 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                     dialog.showAndWait().ifPresent(result -> {
                         System.out.println("Wybrano nowy przedmiot: " + result);
 
-                        // TODO obsluga do serwera
+                        Subject selectedSubject = subjects.stream()
+                                .filter(subject -> subject.getName().equals(result))
+                                .findFirst()
+                                .orElse(null);
+
+                        assert selectedSubject != null;
+
+                        ManageInfo manageInfoPack = new ManageInfo(item.getStudent().getId(), selectedSubject.getId(), 0f);
+
+                        Connector.addSubjectForStudent(manageInfoPack);
+
+                        ArrayList<Student> students = Connector.getStudentsWithGradesWithoutServerNotification();
+                        ManagingController.setStudents(students);
+
+                        reloadView(event);
                     });
 
                 });

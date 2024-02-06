@@ -3,7 +3,7 @@ package client.connection;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
-import db.helperClasses.EditGradeInfo;
+import db.helperClasses.ManageInfo;
 
 import java.io.*;
 import java.net.*;
@@ -104,7 +104,7 @@ public class Connector {
         return receivedStudenci;
     }
 
-    public static ArrayList<Student> getStudentsWithGradesWithoutNotification() {
+    public static ArrayList<Student> getStudentsWithGradesWithoutServerNotification() {
 
         ArrayList<Student> receivedStudenci;
 
@@ -176,7 +176,7 @@ public class Connector {
 
     }
 
-    public static void editGradeForStudent(EditGradeInfo pack) {
+    public static void editGradeForStudent(ManageInfo pack) {
         try {
             out.writeObject(Operations.EDIT_STUDENT_GRADE);
         } catch (IOException e) {
@@ -190,9 +190,23 @@ public class Connector {
 
     }
 
-    public static void removeSubjectForStudent(EditGradeInfo pack) {
+    public static void removeSubjectForStudent(ManageInfo pack) {
         try {
             out.writeObject(Operations.REMOVE_SUBJECT_FOR_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(pack);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void addSubjectForStudent(ManageInfo pack) {
+        try {
+            out.writeObject(Operations.ADD_SUBJECT_FOR_STUDENT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

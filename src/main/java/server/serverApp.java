@@ -1,13 +1,11 @@
 package server;
 
-import client.controllers.StudentListController;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
-import db.helperClasses.EditGradeInfo;
+import db.helperClasses.ManageInfo;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
-import db.entities.StudentGrade;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -88,7 +86,7 @@ public class serverApp {
             output.writeObject(allStudents);
         }
         else if (op == Operations.EDIT_STUDENT_GRADE) {
-            EditGradeInfo gradeInfo = (EditGradeInfo) input.readObject();
+            ManageInfo gradeInfo = (ManageInfo) input.readObject();
             subjectRepository.updateGradeForStudent(gradeInfo.getStudentId(),
                     gradeInfo.getSubjectId(), gradeInfo.getGradeValue());
 
@@ -98,9 +96,18 @@ public class serverApp {
 
         }
         else if (op == Operations.REMOVE_SUBJECT_FOR_STUDENT) {
-            EditGradeInfo gradeInfo = (EditGradeInfo) input.readObject();
+            ManageInfo gradeInfo = (ManageInfo) input.readObject();
             subjectRepository.removeSubjectForStudent(gradeInfo.getStudentId(),
                     gradeInfo.getSubjectId());
+
+            List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
+
+            output.writeObject(allStudentsWithGrades);
+        }
+        else if (op == Operations.ADD_SUBJECT_FOR_STUDENT) {
+            ManageInfo gradeInfo = (ManageInfo) input.readObject();
+
+            subjectRepository.addSubjectForStudent(gradeInfo.getStudentId(), gradeInfo.getSubjectId());
 
             List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
 
