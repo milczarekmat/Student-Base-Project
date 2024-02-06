@@ -3,6 +3,7 @@ package client.connection;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.net.*;
@@ -30,12 +31,14 @@ public class Connector {
             out =  new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             System.out.println("Connected");
-//
-//
-//
         }
         catch (UnknownHostException u) {
-//            System.out.println(u);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd połączenia");
+            alert.setHeaderText("Brak połączenia z serwerem");
+            alert.setContentText("Sprawdź połączenie z serwerem.");
+
+            alert.showAndWait();
             loading = false;
             return;
         }
@@ -72,6 +75,7 @@ public class Connector {
         try {
             out.writeObject(Operations.SHOW_STUDENTS);
         } catch (IOException e) {
+            printConnectionLost();
             throw new RuntimeException(e);
         }
 
@@ -90,6 +94,7 @@ public class Connector {
         try {
             out.writeObject(Operations.SHOW_SUBJECTS);
         } catch (IOException e) {
+            printConnectionLost();
             throw new RuntimeException(e);
         }
 
@@ -108,6 +113,7 @@ public class Connector {
         try {
             out.writeObject(Operations.ADD_STUDENT);
         } catch (IOException e) {
+            printConnectionLost();
             throw new RuntimeException(e);
         }
         try {
@@ -122,6 +128,7 @@ public class Connector {
         try {
             out.writeObject(Operations.DELETE_STUDENT);
         } catch (IOException e) {
+            printConnectionLost();
             throw new RuntimeException(e);
         }
         try {
@@ -135,6 +142,7 @@ public class Connector {
         try {
             out.writeObject(Operations.ADD_SUBJECT);
         } catch (IOException e) {
+            printConnectionLost();
             throw new RuntimeException(e);
         }
         try {
@@ -144,6 +152,12 @@ public class Connector {
         }
 
     }
+    public static void printConnectionLost(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd połączenia");
+        alert.setHeaderText("Brak połączenia z serwerem");
+        alert.setContentText("Sprawdź połączenie z serwerem.");
 
-
+        alert.showAndWait();
+    }
 }
