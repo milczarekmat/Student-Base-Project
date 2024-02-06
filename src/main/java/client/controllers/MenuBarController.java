@@ -65,6 +65,10 @@ public class MenuBarController implements Controller {
         changeScene("/scenes/main/subject/subjectMeanList.fxml");
     }
 
+    public void toManaging() throws IOException {
+        changeScene("/scenes/main/managingSubjectsAndGrades.fxml");
+    }
+
     public void logIn(ActionEvent event) throws IOException {
         Connector.connect();
 
