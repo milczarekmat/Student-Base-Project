@@ -3,16 +3,16 @@ package client.connection;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.ManageInfo;
 import db.helperClasses.SubjectMeanInfo;
 import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Connector {
-    //todo: DOPISAĆ WYWALENIE BŁEDU O BRKAU POLACZENIA Z SERWEREM DO KAZDEJ FUNKCJI
+
     private static boolean loading;
 
     private static boolean connected;
@@ -73,7 +73,6 @@ public class Connector {
     }
 
     public ArrayList<Student> getStudents() {
-//        System.out.println("wyslij studentow");
         try {
             out.writeObject(Operations.SHOW_STUDENTS);
         } catch (IOException e) {
@@ -92,7 +91,38 @@ public class Connector {
         return receivedStudenci;
     }
 
-    public ArrayList<Subject> getSubjects() {
+    public ArrayList<Student> getStudentsWithGrades() {
+        try {
+            out.writeObject(Operations.SHOW_STUDENTS_WITH_GRADES);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Student> receivedStudenci;
+
+        try {
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedStudenci;
+    }
+
+    public static ArrayList<Student> getStudentsWithGradesWithoutServerNotification() {
+
+        ArrayList<Student> receivedStudenci;
+
+        try {
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedStudenci;
+    }
+
+    public static ArrayList<Subject> getSubjects() {
         try {
             out.writeObject(Operations.SHOW_SUBJECTS);
         } catch (IOException e) {
@@ -184,6 +214,49 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    public static void editGradeForStudent(ManageInfo pack) {
+        try {
+            out.writeObject(Operations.EDIT_STUDENT_GRADE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(pack);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void removeSubjectForStudent(ManageInfo pack) {
+        try {
+            out.writeObject(Operations.REMOVE_SUBJECT_FOR_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(pack);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void addSubjectForStudent(ManageInfo pack) {
+        try {
+            out.writeObject(Operations.ADD_SUBJECT_FOR_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(pack);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     public static void printConnectionLost(){
         Alert alert = new Alert(Alert.AlertType.ERROR);

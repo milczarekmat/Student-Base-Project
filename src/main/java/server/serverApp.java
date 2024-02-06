@@ -4,6 +4,7 @@ import db.entities.Grade;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
+import db.helperClasses.ManageInfo;
 import db.helperClasses.SubjectMeanInfo;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
@@ -101,10 +102,40 @@ public class serverApp {
 
                 output.writeObject(subjectsWithMeans);
                 break;
+            case SHOW_STUDENTS_WITH_GRADES:
+                List<Student> studentsWithGrades = studentRepository.getAllStudentsWithGrades();
+                output.writeObject(studentsWithGrades);
+                break;
+            case EDIT_STUDENT_GRADE:
+                ManageInfo gradeInfo = (ManageInfo) input.readObject();
+                subjectRepository.updateGradeForStudent(gradeInfo.getStudentId(),
+                        gradeInfo.getSubjectId(), gradeInfo.getGradeValue());
+
+                List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
+
+                output.writeObject(allStudentsWithGrades);
+                break;
+            case REMOVE_SUBJECT_FOR_STUDENT:
+                ManageInfo manageInfo = (ManageInfo) input.readObject();
+                subjectRepository.removeSubjectForStudent(manageInfo.getStudentId(),
+                        manageInfo.getSubjectId());
+
+                List<Student> allStudentWithGrades = studentRepository.getAllStudentsWithGrades();
+
+                output.writeObject(allStudentWithGrades);
+                break;
+            case ADD_SUBJECT_FOR_STUDENT:
+                ManageInfo info = (ManageInfo) input.readObject();
+
+                subjectRepository.addSubjectForStudent(info.getStudentId(), info.getSubjectId());
+
+                List<Student> allStudentsWithGrades1 = studentRepository.getAllStudentsWithGrades();
+
+                output.writeObject(allStudentsWithGrades1);
+                break;
             default:
                 System.out.println("Nieznana operacja");
         }
-
     }
 
     private static void handleClient(Socket socket) {
@@ -127,7 +158,7 @@ public class serverApp {
 //                in.close();
 //                out.close();
 //                socket.close();
-            } catch (IOException e) {
+            } catch(IOException e ){
                 System.out.println(e.getMessage());
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);

@@ -24,6 +24,10 @@ public class StudentGrade implements Serializable {
     @JoinColumn(name = "id_grade", nullable = true, foreignKey = @ForeignKey(name="FK_GRADE"))
     private Grade grade;
 
+    public StudentGrade() {
+    }
+
+
     public Integer getId() {
         return id;
     }

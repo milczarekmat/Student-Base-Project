@@ -29,7 +29,7 @@ public class MenuBarController implements Controller {
     private MenuBar menuBar;
 
     public void toSubjectList() throws IOException {
-        ArrayList<Subject> subjects = connector.getSubjects();
+        ArrayList<Subject> subjects = Connector.getSubjects();
         SubjectListController.setSubjects(subjects);
 
         changeScene("/scenes/main/subject/subjectList.fxml");
@@ -68,6 +68,13 @@ public class MenuBarController implements Controller {
 
 
         changeScene("/scenes/main/subject/subjectMeanList.fxml");
+    }
+
+    public void toManaging() throws IOException {
+        ArrayList<Student> students = connector.getStudentsWithGrades();
+        ManagingController.setStudents(students);
+
+        changeScene("/scenes/main/managingSubjectsAndGrades.fxml");
     }
 
     public void logIn(ActionEvent event) throws IOException {
