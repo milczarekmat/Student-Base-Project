@@ -1,5 +1,6 @@
 package server;
 
+import client.controllers.StudentListController;
 import db.entities.Operations;
 import db.entities.Student;
 import db.entities.Subject;
@@ -49,7 +50,7 @@ public class serverApp {
 
             List<Student> allStudents = studentRepository.getAllStudents();
             allStudents.forEach(System.out::println);
-            output.writeObject(allStudents);
+//            output.writeObject(allStudents);
         }
         else if (op == Operations.DELETE_STUDENT) {
             int index = (int) input.readObject();
@@ -57,7 +58,7 @@ public class serverApp {
 
             List<Student> allStudents = studentRepository.getAllStudents();
             allStudents.forEach(System.out::println);
-            output.writeObject(allStudents);
+//            output.writeObject(allStudents);
         }
         else if(op == Operations.SHOW_SUBJECTS) {
             List<Subject> allSubjects = subjectRepository.getAllSubjects();
@@ -70,7 +71,7 @@ public class serverApp {
 
             List<Subject> allSubjects = subjectRepository.getAllSubjects();
             allSubjects.forEach(System.out::println);
-            output.writeObject(allSubjects);
+//            output.writeObject(allSubjects);
         }
         else if (op == Operations.DELETE_SUBJECT) {
             String name = (String) input.readObject();
@@ -78,7 +79,7 @@ public class serverApp {
 
             List<Subject> allSubjects = subjectRepository.getAllSubjects();
             allSubjects.forEach(System.out::println);
-            output.writeObject(allSubjects);
+//            output.writeObject(allSubjects);
         }
     }
 
