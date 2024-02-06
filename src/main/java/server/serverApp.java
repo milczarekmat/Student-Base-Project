@@ -97,7 +97,7 @@ public class serverApp {
                     });
                     mean[0] /= subject.getStudentGrades().size();
 
-                    subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0]));
+                    subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0] == 0 ? null : mean[0]));
                 });
 
                 output.writeObject(subjectsWithMeans);
