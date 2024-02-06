@@ -81,7 +81,7 @@ public class StudentRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();
 
-            String jpql = "SELECT DISTINCT s FROM Student s LEFT JOIN FETCH s.studentGrades sg LEFT JOIN FETCH sg.idSubject LEFT JOIN FETCH sg.idGrade";
+            String jpql = "SELECT DISTINCT s FROM Student s LEFT JOIN FETCH s.studentGrades sg LEFT JOIN FETCH sg.subject LEFT JOIN FETCH sg.grade";
             TypedQuery<Student> query = entityManager.createQuery(jpql, Student.class);
             studentsWithGrades = query.getResultList();
 
@@ -106,8 +106,7 @@ public class StudentRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();
 
-            // Używamy LEFT JOIN FETCH, aby pobrać studenta wraz z ocenami
-            String jpql = "SELECT s FROM Student s LEFT JOIN FETCH s.studentGrades sg LEFT JOIN FETCH sg.idSubject LEFT JOIN FETCH sg.idGrade WHERE s.id = :studentId";
+            String jpql = "SELECT s FROM Student s LEFT JOIN FETCH s.studentGrades sg LEFT JOIN FETCH sg.subject LEFT JOIN FETCH sg.grade WHERE s.id = :studentId";
             TypedQuery<Student> query = entityManager.createQuery(jpql, Student.class);
             query.setParameter("studentId", ind);
 

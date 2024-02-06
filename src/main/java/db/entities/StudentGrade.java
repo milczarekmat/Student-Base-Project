@@ -10,17 +10,17 @@ public class StudentGrade {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "id_subject", nullable = false, foreignKey = @ForeignKey(name="FK_SUBJECT"))
-    private Subject idSubject;
+    private Subject subject;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_student", nullable = false, foreignKey = @ForeignKey(name="FK_STUDENT"))
-    private Student idStudent;
+    private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_grade", nullable = true, foreignKey = @ForeignKey(name="FK_GRADE"))
-    private Grade idGrade;
+    private Grade grade;
 
     public Integer getId() {
         return id;
@@ -30,28 +30,28 @@ public class StudentGrade {
         this.id = id;
     }
 
-    public Subject getIdSubject() {
-        return idSubject;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setIdSubject(Subject idSubject) {
-        this.idSubject = idSubject;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
-    public Student getIdStudent() {
-        return idStudent;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setIdStudent(Student idStudent) {
-        this.idStudent = idStudent;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Grade getIdGrade() {
-        return idGrade;
+    public Grade getGrade() {
+        return grade;
     }
 
-    public void setIdGrade(Grade idGrade) {
-        this.idGrade = idGrade;
+    public void setGrade(Grade grade) {
+        this.grade = grade;
     }
 
 }
