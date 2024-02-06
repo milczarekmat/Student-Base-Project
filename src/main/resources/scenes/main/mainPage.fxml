@@ -20,12 +20,12 @@
       </Label>
       <FlowPane alignment="CENTER" layoutX="45.0" layoutY="88.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <TextField prefHeight="42.0" prefWidth="285.0" promptText="Nr indeksu">
+            <TextField fx:id="findStudent" prefHeight="42.0" prefWidth="285.0" promptText="Nr indeksu">
                <FlowPane.margin>
                   <Insets right="30.0" />
                </FlowPane.margin>
             </TextField>
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Wyszukaj" />
+            <Button onAction="#handleSearchButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Wyszukaj" />
          </children>
       </FlowPane>
       <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="145.0" prefHeight="208.0" prefWidth="848.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="210.0">

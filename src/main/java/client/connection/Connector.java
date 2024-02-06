@@ -149,6 +149,7 @@ public class Connector {
         ArrayList<Subject> receivedSubjects;
         try {
             receivedSubjects = (ArrayList<Subject>) input.readObject();
+            System.out.println(receivedSubjects);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
