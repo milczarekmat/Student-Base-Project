@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LandingPageController implements Controller{
+public class LandingPageController {
     public Button connectButton;
 
     public void logIn(ActionEvent event) throws IOException {

@@ -101,7 +101,7 @@ public class serverApp {
                     });
                     mean[0] /= subject.getStudentGrades().size();
 
-                    subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0]));
+                    subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0] == 0 ? null : mean[0]));
                 });
 
                 output.writeObject(subjectsWithMeans);
@@ -136,6 +136,13 @@ public class serverApp {
                 List<Student> allStudentsWithGrades1 = studentRepository.getAllStudentsWithGrades();
 
                 output.writeObject(allStudentsWithGrades1);
+                break;
+            case FIND_STUDENT:
+                Integer idx = (Integer) input.readObject();
+                Student student = studentRepository.getStudentByIdWithGrades(idx);
+                System.out.println("dupa " + idx + " " + student.getStudentGrades().size());
+                student.getStudentGrades().forEach(System.out::println);
+                output.writeObject(student.getStudentGrades());
                 break;
             default:
                 System.out.println("Nieznana operacja");

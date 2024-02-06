@@ -115,7 +115,6 @@ public class StudentRepository {
             query.setParameter("studentId", ind);
 
             Student student = query.getSingleResult();
-
             entityManager.getTransaction().commit();
 
             return student;
