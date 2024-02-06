@@ -1,8 +1,6 @@
 package client.controllers;
 
 import client.connection.Connector;
-import db.entities.Student;
-import db.entities.StudentGrade;
 import db.entities.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +30,26 @@ public class SubjectListController implements Initializable {
 
     @FXML
     private TextField subjectTeacher;
+
+    @FXML
+    private TextField deletedSubjectName;
+
+    @FXML
+    private void handleDeleteButtonAction(ActionEvent event) {
+        String name = deletedSubjectName.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potwierdzenie usuniecia");
+        alert.setHeaderText("Potwierdzenie");
+        alert.setContentText("Czy chcesz żeby na pewno usunąć przedmiot " + name + "?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Connector.deleteSubject(name);
+                deletedSubjectName.clear();
+            }
+        });
+    }
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
