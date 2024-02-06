@@ -24,6 +24,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class CustomTreeCell extends TreeCell<StudentGrade> {
+
+    public CustomTreeCell() {
+        setPrefHeight(40);
+        setStyle("-fx-font-size: 14;");
+    }
+
     @Override
     protected void updateItem(StudentGrade item, boolean empty) {
         super.updateItem(item, empty);
@@ -55,6 +61,8 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                 }
                 Button changeGradeBtn = new Button("Zmień ocenę");
                 Button deleteSubjectBtn = new Button("-");
+
+                deleteSubjectBtn.setStyle("-fx-background-color: #aa0000; -fx-text-fill: white;");
 
                 subjectLabel.prefWidth(200);
                 subjectLabel.setMinWidth(200);
@@ -129,7 +137,13 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
             } else {
                 HBox cellBox = new HBox(20);
 
+                Student student = item.getStudent();
+
                 Button addSubjectBtn = new Button("Dodaj przedmiot");
+                Label studentLabel = new Label(student.getName() + " " + student.getSurname() + " "
+                        + student.getId());
+
+                cellBox.getChildren().add(studentLabel);
 
                 HBox.setMargin(addSubjectBtn, new javafx.geometry.Insets(0, 25, 0, 0));
 
@@ -198,9 +212,7 @@ public class CustomTreeCell extends TreeCell<StudentGrade> {
                 });
 
                 setGraphic(cellBox);
-
-                Student student = item.getStudent();
-                setText(student.getName() + " " + student.getSurname() + " " + student.getId());
+                setText(null);
             }
         }
     }
