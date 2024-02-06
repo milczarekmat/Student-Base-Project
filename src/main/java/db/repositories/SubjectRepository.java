@@ -28,7 +28,7 @@ public class SubjectRepository {
         }
     }
 
-    public void removeSubject(String subjectName) {
+    public String removeSubject(String subjectName) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();
 
@@ -44,10 +44,12 @@ public class SubjectRepository {
                 System.out.println("Usunięto przedmiot o nazwie: " + subjectName);
             } else {
                 System.out.println("Nie znaleziono przedmiotu o nazwie: " + subjectName);
+                return "Nie znaleziono przedmiotu o nazwie: " + subjectName;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "Usunięto przedmiot o nazwie: " + subjectName;
     }
 
     public List<Subject> getAllSubjects() {

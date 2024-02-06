@@ -153,7 +153,17 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try{
+            String message = (String) input.readObject();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Status operacji dodawnia studenta:");
+            alert.setContentText(message);
 
+            alert.showAndWait();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void deleteStudent (int studentID) {
@@ -166,6 +176,17 @@ public class Connector {
         try {
             out.writeObject(studentID);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try{
+            String message = (String) input.readObject();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Status operacji usuwania studenta:");
+            alert.setContentText(message);
+
+            alert.showAndWait();
+        } catch (ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -200,6 +221,17 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try{
+            String message = (String) input.readObject();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Status operacji dodawania przedmiotu:");
+            alert.setContentText(message);
+
+            alert.showAndWait();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void addSubject(Subject subject) {
@@ -214,7 +246,6 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public static void editGradeForStudent(ManageInfo pack) {
