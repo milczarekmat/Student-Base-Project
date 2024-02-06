@@ -158,7 +158,7 @@ public class serverApp {
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
-            System.out.println(e);
+//            System.out.println(e.getMessage());
             return;
         }
 
@@ -172,7 +172,7 @@ public class serverApp {
 //                out.close();
 //                socket.close();
             } catch(IOException e ){
-                System.out.println(e.getMessage());
+//                System.out.println(e.getMessage());
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
