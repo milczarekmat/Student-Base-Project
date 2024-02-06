@@ -2,6 +2,7 @@ package client.connection;
 
 import db.entities.Operations;
 import db.entities.Student;
+import db.entities.StudentGrade;
 import db.entities.Subject;
 import db.helperClasses.ManageInfo;
 import db.helperClasses.SubjectMeanInfo;
@@ -10,6 +11,7 @@ import javafx.scene.control.Alert;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Connector {
 
@@ -259,7 +261,7 @@ public class Connector {
 
     }
 
-    public static void searchStudentById(Integer index) {
+    public static Set<StudentGrade> searchStudentById(Integer index) {
         try {
             out.writeObject(Operations.FIND_STUDENT);
         } catch (IOException e) {
@@ -270,12 +272,13 @@ public class Connector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        Set<StudentGrade> student;
         try {
-            Student student = (Student) input.readObject();
+            student = (Set<StudentGrade>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
+        return student;
     }
 
     public static void printConnectionLost(){

@@ -18,4 +18,11 @@ public class SubjectMeanInfo implements Serializable {
     public float getMean() {
         return mean;
     }
+
+    @Override
+    public String toString() {
+        return "Subject: " + subjectName +
+                ", grade: " + mean +
+                ' ';
+    }
 }
