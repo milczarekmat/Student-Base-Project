@@ -258,6 +258,26 @@ public class Connector {
         }
 
     }
+
+    public static void searchStudentById(Integer index) {
+        try {
+            out.writeObject(Operations.FIND_STUDENT);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(index);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Student student = (Student) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public static void printConnectionLost(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Błąd połączenia");

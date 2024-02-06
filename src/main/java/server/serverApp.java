@@ -133,6 +133,10 @@ public class serverApp {
 
                 output.writeObject(allStudentsWithGrades1);
                 break;
+            case FIND_STUDENT:
+                Integer idx = (Integer) input.readObject();
+                Student student = studentRepository.getStudentByIdWithGrades(idx);
+
             default:
                 System.out.println("Nieznana operacja");
         }

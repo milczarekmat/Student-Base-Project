@@ -10,6 +10,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import org.w3c.dom.Text;
 import db.repositories.StudentRepository;
+import client.connection.Connector;
+
 
 public class MainPageController implements Controller {
     public MenuBar menu;
@@ -22,7 +24,7 @@ public class MainPageController implements Controller {
     @FXML
     private void handleSearchButton(ActionEvent event) {
         Integer studID = Integer.parseInt(findStudent.getText());
-
+        Connector.searchStudentById(studID);
 
         System.out.println(studID);
     }
