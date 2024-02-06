@@ -1,4 +1,5 @@
 package client.controllers;
+import client.connection.Connector;
 import db.entities.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,9 @@ public class StudentListController implements Initializable {
     public TableColumn<Student, String> imieColumn;
     public TableColumn<Student, String> nazwiskoColumn;
     public TableColumn<Student, String> wydzialColumn;
+
+    @FXML
+    private TextField deletedIndex;
 
     public static ArrayList<Student> students = new ArrayList<>();
     @FXML
@@ -84,5 +88,24 @@ public class StudentListController implements Initializable {
 
             tableView.setItems(listaStudentow);
         }
+    }
+
+    @FXML
+    private void handleDeleteButtonAction(ActionEvent actionEvent) {
+        Integer index = Integer.parseInt(deletedIndex.getText());
+
+        //todo: sprawdzic czy student istnieje
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potwierdzenie usuniecia");
+        alert.setHeaderText("Potwierdzenie");
+        alert.setContentText("Czy chcesz żeby na pewno usunąć studenta o indeksie " + index + "?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Connector.deleteStudent(index);
+                deletedIndex.clear();
+            }
+        });
     }
 }

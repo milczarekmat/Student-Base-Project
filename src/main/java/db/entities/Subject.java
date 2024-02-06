@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "subjects", schema = "bazazpo", uniqueConstraints = @UniqueConstraint(name = "UNIQUE_SUBJECT_NAME", columnNames = {"name"}))
-public class Subject {
+public class Subject implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,6 +20,15 @@ public class Subject {
     @Column(name = "name", nullable = false)
 
     private String name;
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", subjectManager='" + subjectManager + '\'' +
+                '}';
+    }
 
     @Lob
     @Column(name = "subject_manager", nullable = false)

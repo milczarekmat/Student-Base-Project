@@ -2,6 +2,7 @@ package client.controllers;
 
 import client.connection.Connector;
 import db.entities.Student;
+import db.entities.Subject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,9 @@ public class MenuBarController implements Controller {
     private MenuBar menuBar;
 
     public void toSubjectList() throws IOException {
+        ArrayList<Subject> subjects = connector.getSubjects();
+        SubjectListController.setSubjects(subjects);
+
         changeScene("/scenes/main/subject/subjectList.fxml");
     }
 
@@ -88,10 +92,11 @@ public class MenuBarController implements Controller {
         alert.setTitle("Wylogowanie");
         alert.setHeaderText("Potwierdzenie");
         alert.setContentText("Czy chcesz na pewno się wylogować?");
-        connector.disconnect();
+
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                try {
+                connector.disconnect();
+               try {
                     changeScene("/scenes/landing/landingPage.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
