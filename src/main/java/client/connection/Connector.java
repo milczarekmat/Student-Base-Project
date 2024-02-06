@@ -138,6 +138,23 @@ public class Connector {
         }
     }
 
+    public static ArrayList<Subject> getStudentGrades() {
+        try {
+            out.writeObject(Operations.GET_SUBJECTS_WITH_GRADES);
+        } catch (IOException e) {
+            printConnectionLost();
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Subject> receivedSubjects;
+        try {
+            receivedSubjects = (ArrayList<Subject>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return receivedSubjects;
+    }
+
     public static void deleteSubject(String subjectName) {
         try {
             out.writeObject(Operations.DELETE_SUBJECT);

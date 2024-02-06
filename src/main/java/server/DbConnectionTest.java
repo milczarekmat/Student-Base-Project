@@ -67,6 +67,11 @@ public class DbConnectionTest {
         gradeFive.setName("Bardzo dobry");
         gradeFive.setValue(5f);
 
+        StudentGrade firstStudentGrade = new StudentGrade();
+        firstStudentGrade.setGrade(gradeThree);
+        firstStudentGrade.setStudent(student);
+        firstStudentGrade.setSubject(subject1);
+
 //        Grade grade = session.find(Grade.class, 1);
 //        Student student = session.find(Student.class, 240885);
 //        Subject subject = session.find(Subject.class, 2);
@@ -91,6 +96,8 @@ public class DbConnectionTest {
         session.persist(gradeFour);
         session.persist(gradeFourPlus);
         session.persist(gradeFive);
+
+        session.persist(firstStudentGrade);
 
 //        session.persist(studentGrade);
 //        session.remove(student);

@@ -40,48 +40,53 @@ public class serverApp {
     }
 
     public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException {
-        if(op == Operations.SHOW_STUDENTS){
-            List<Student> allStudents = studentRepository.getAllStudents();
-            allStudents.forEach(System.out::println);
-            output.writeObject(allStudents);
-        }
-        else if (op == Operations.ADD_STUDENT){
-            Student newStudent = (Student) input.readObject();
-            studentRepository.addStudent(newStudent);
+        switch (op) {
+            case SHOW_STUDENTS:
+                List<Student> allStudents = studentRepository.getAllStudents();
+                allStudents.forEach(System.out::println);
+                output.writeObject(allStudents);
+                break;
+            case ADD_STUDENT:
+                Student newStudent = (Student) input.readObject();
+                studentRepository.addStudent(newStudent);
 
-            List<Student> allStudents = studentRepository.getAllStudents();
-            allStudents.forEach(System.out::println);
-//            output.writeObject(allStudents);
-        }
-        else if (op == Operations.DELETE_STUDENT) {
-            int index = (int) input.readObject();
-            studentRepository.removeStudent(index);
+                allStudents = studentRepository.getAllStudents();
+                allStudents.forEach(System.out::println);
+                break;
+            case DELETE_STUDENT:
+                int index = (int) input.readObject();
+                studentRepository.removeStudent(index);
 
-            List<Student> allStudents = studentRepository.getAllStudents();
-            allStudents.forEach(System.out::println);
-//            output.writeObject(allStudents);
-        }
-        else if(op == Operations.SHOW_SUBJECTS) {
-            List<Subject> allSubjects = subjectRepository.getAllSubjects();
-            allSubjects.forEach(System.out::println);
-            output.writeObject(allSubjects);
-        }
-        else if(op == Operations.ADD_SUBJECT) {
-            Subject newSubject = (Subject) input.readObject();
-            subjectRepository.addSubject(newSubject);
+                allStudents = studentRepository.getAllStudents();
+                allStudents.forEach(System.out::println);
+                break;
+            case SHOW_SUBJECTS:
+                List<Subject> allSubjects = subjectRepository.getAllSubjects();
+                allSubjects.forEach(System.out::println);
+                output.writeObject(allSubjects);
+                break;
+            case ADD_SUBJECT:
+                Subject newSubject = (Subject) input.readObject();
+                subjectRepository.addSubject(newSubject);
 
-            List<Subject> allSubjects = subjectRepository.getAllSubjects();
-            allSubjects.forEach(System.out::println);
-//            output.writeObject(allSubjects);
-        }
-        else if (op == Operations.DELETE_SUBJECT) {
-            String name = (String) input.readObject();
-            subjectRepository.removeSubject(name);
+                allSubjects = subjectRepository.getAllSubjects();
+                allSubjects.forEach(System.out::println);
+                break;
+            case DELETE_SUBJECT:
+                String name = (String) input.readObject();
+                subjectRepository.removeSubject(name);
 
-            List<Subject> allSubjects = subjectRepository.getAllSubjects();
-            allSubjects.forEach(System.out::println);
-//            output.writeObject(allSubjects);
+                allSubjects = subjectRepository.getAllSubjects();
+                allSubjects.forEach(System.out::println);
+                break;
+            case GET_SUBJECTS_WITH_GRADES:
+                List<Subject> subjects = subjectRepository.getSubjectsWithGrades();
+                output.writeObject(subjects);
+                break;
+            default:
+                System.out.println("Nieznana operacja");
         }
+
     }
 
     private static void handleClient(Socket socket) {
