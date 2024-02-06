@@ -104,7 +104,7 @@ public class Connector {
         return receivedSubjects;
     }
 
-    public void addStudent(Student student) {
+    public static void addStudent(Student student) {
         try {
             out.writeObject(Operations.ADD_STUDENT);
         } catch (IOException e) {
