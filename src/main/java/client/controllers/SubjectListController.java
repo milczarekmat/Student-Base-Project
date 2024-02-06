@@ -9,13 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class SubjectListController implements Initializable {
+public class SubjectListController implements Controller, Initializable {
     public MenuBar menu;
     public TableView<Subject> tableView;
     public TableColumn<Subject, Integer> id;
@@ -23,7 +22,6 @@ public class SubjectListController implements Initializable {
     public TableColumn<Subject, String> teacher;
     public static ArrayList<Subject> subjects = new ArrayList<>();
 
-    public static ArrayList<Pair<String, Float>> studentsGrades = new ArrayList<>();
 
     @FXML
     private TextField deletedSubjectName;

@@ -29,7 +29,7 @@
     </Menu>
     <Menu mnemonicParsing="false" text="Zarządzanie">
       <items>
-        <MenuItem mnemonicParsing="false" text="Modyfikuj przedmioty i oceny dla studenta" />
+        <MenuItem mnemonicParsing="false" onAction="#toManaging" text="Modyfikuj przedmioty i oceny dla studenta" />
       </items>
     </Menu>
   </menus>

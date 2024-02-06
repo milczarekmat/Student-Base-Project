@@ -10,4 +10,5 @@ module student.base.project {
     opens client.controllers;
     opens server;
     opens db.entities;
+    opens db.helperClasses;
 }
