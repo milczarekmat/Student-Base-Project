@@ -68,9 +68,26 @@ public class Connector {
     }
 
     public ArrayList<Student> getStudents() {
-//        System.out.println("wyslij studentow");
         try {
             out.writeObject(Operations.SHOW_STUDENTS);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Student> receivedStudenci;
+
+        try {
+            receivedStudenci = (ArrayList<Student>) input.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receivedStudenci;
+    }
+
+    public ArrayList<Student> getStudentsWithGrades() {
+        try {
+            out.writeObject(Operations.SHOW_STUDENTS_WITH_GRADES);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

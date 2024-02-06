@@ -18,13 +18,17 @@ public class CustomTreeCell extends TreeCell<String> {
             setText(null);
         } else {
             if (this.getTreeItem().isLeaf()) {
-
                 HBox cellBox = new HBox(12);
+
+                if (item.equals("no grades")) {
+                    setGraphic(null);
+                    setText("Brak ocen i przedmiotów dla studenta");
+                    return;
+                }
 
                 Label label = new Label(item);
                 Button changeGradeBtn = new Button("Zmień ocenę");
                 Button deleteSubjectBtn = new Button("-");
-
 
                 label.prefWidth(200);
                 label.setMinWidth(200);

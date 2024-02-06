@@ -2,12 +2,13 @@ package db.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "grades", schema = "bazazpo")
-public class Grade {
+public class Grade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

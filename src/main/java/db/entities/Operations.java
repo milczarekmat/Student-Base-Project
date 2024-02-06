@@ -9,5 +9,6 @@ public enum Operations {
     DELETE_SUBJECT,
     COUNT_AVERAGE,
     MODIFY_DATA,
-    FIND_STUDENT
+    FIND_STUDENT,
+    SHOW_STUDENTS_WITH_GRADES
 }

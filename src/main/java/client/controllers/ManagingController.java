@@ -1,34 +1,58 @@
 package client.controllers;
 
+import client.customElements.CustomTreeCell;
+import db.entities.Grade;
+import db.entities.Student;
+import db.entities.StudentGrade;
+import db.entities.Subject;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
-import client.customElements.CustomTreeCell;
-
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class ManagingController implements Initializable {
     public MenuBar menu;
 
     public TreeView<String> treeView;
 
+    public static ArrayList<Student> students = new ArrayList<>();
+
+    public static void setStudents(ArrayList<Student> students) {
+        ManagingController.students = students;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         final TreeItem<String> root = new TreeItem<>("Root node");
         root.setExpanded(true);
 
-        final TreeItem<String> parentNode1 = new TreeItem<>("Jan Kowalski 240753");
 
-        final TreeItem<String> childNode1 = new TreeItem<>("Matematyka     dostateczny (3)");
-        final TreeItem<String> childNode2 = new TreeItem<>("Przyroda       bardzo dobry (5)");
+        students.forEach(student -> {
+            String name = student.getName();
+            String surname = student.getSurname();
+            TreeItem<String> parentItem = new TreeItem<>(name + " " + surname);
+            root.getChildren().add(parentItem);
 
+            Set<StudentGrade> studentGrades = student.getStudentGrades();
 
-        root.getChildren().setAll(parentNode1);
+            if (studentGrades.size() == 0) {
+                parentItem.getChildren().add(new TreeItem<>("no grades"));
+            } else {
+                studentGrades.forEach(item -> {
+                    Grade grade = item.getGrade();
+                    Subject subject = item.getSubject();
 
-        parentNode1.getChildren().addAll(childNode1, childNode2);
+                    TreeItem<String> childItem = new TreeItem<>(subject.getName() + "    " + grade.getValue());
+
+                    parentItem.getChildren().add(childItem);
+                });
+            }
+        });
 
 
         treeView.setShowRoot(false);

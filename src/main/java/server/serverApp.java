@@ -82,6 +82,11 @@ public class serverApp {
             allSubjects.forEach(System.out::println);
 //            output.writeObject(allSubjects);
         }
+        else if (op == Operations.SHOW_STUDENTS_WITH_GRADES) {
+            List<Student> allStudents = studentRepository.getAllStudentsWithGrades();
+            allStudents.forEach(System.out::println);
+            output.writeObject(allStudents);
+        }
     }
 
     private static void handleClient(Socket socket) {

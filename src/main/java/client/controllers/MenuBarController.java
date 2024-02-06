@@ -66,6 +66,9 @@ public class MenuBarController implements Controller {
     }
 
     public void toManaging() throws IOException {
+        ArrayList<Student> students = connector.getStudentsWithGrades();
+        ManagingController.setStudents(students);
+
         changeScene("/scenes/main/managingSubjectsAndGrades.fxml");
     }
 

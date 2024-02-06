@@ -2,9 +2,11 @@ package db.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "student_grades", schema = "bazazpo", uniqueConstraints={@UniqueConstraint(name = "STUDENT_SUBJECT_UNIQUE", columnNames = {"id_subject" , "id_student"})})
-public class StudentGrade {
+public class StudentGrade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
