@@ -24,7 +24,7 @@
         <MenuItem mnemonicParsing="false" onAction="#toSubjectList" text="Lista przedmiotów" />
             <MenuItem mnemonicParsing="false" onAction="#toSubjectAdd"  text="Dodaj przedmiot" />
             <MenuItem mnemonicParsing="false" onAction="#toSubjectDelete"  text="Usuń przedmiot" />
-            <MenuItem mnemonicParsing="false" text="Uczęszczane przedmioty ze średnią ocen" />
+            <MenuItem mnemonicParsing="false" onAction="#toMeanList" text="Uczęszczane przedmioty ze średnią ocen" />
       </items>
     </Menu>
     <Menu mnemonicParsing="false" text="Zarządzanie">
