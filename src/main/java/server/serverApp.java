@@ -42,6 +42,7 @@ public class serverApp {
     }
 
     public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException {
+        String message;
         switch (op) {
             case SHOW_STUDENTS:
                 List<Student> allStudents = studentRepository.getAllStudents();
@@ -50,17 +51,19 @@ public class serverApp {
                 break;
             case ADD_STUDENT:
                 Student newStudent = (Student) input.readObject();
-                studentRepository.addStudent(newStudent);
+                message = studentRepository.addStudent(newStudent);
 
                 allStudents = studentRepository.getAllStudents();
                 allStudents.forEach(System.out::println);
+                output.writeObject(message);
                 break;
             case DELETE_STUDENT:
                 int index = (int) input.readObject();
-                studentRepository.removeStudent(index);
+                message = studentRepository.removeStudent(index);
 
                 allStudents = studentRepository.getAllStudents();
                 allStudents.forEach(System.out::println);
+                output.writeObject(message);
                 break;
             case SHOW_SUBJECTS:
                 List<Subject> allSubjects = subjectRepository.getAllSubjects();
@@ -76,10 +79,11 @@ public class serverApp {
                 break;
             case DELETE_SUBJECT:
                 String name = (String) input.readObject();
-                subjectRepository.removeSubject(name);
+                message = subjectRepository.removeSubject(name);
 
                 allSubjects = subjectRepository.getAllSubjects();
                 allSubjects.forEach(System.out::println);
+                output.writeObject(message);
                 break;
             case GET_SUBJECTS_WITH_GRADES:
                 List<Subject> subjects = subjectRepository.getSubjectsWithGrades();
@@ -136,9 +140,11 @@ public class serverApp {
             case FIND_STUDENT:
                 Integer idx = (Integer) input.readObject();
                 Student student = studentRepository.getStudentByIdWithGrades(idx);
-                System.out.println("dupa " + idx + " " + student.getStudentGrades().size());
+                if(student == null){
+                    student = new Student(idx, "Brak studenta","o indeksie:", "Brak");
+                }
                 student.getStudentGrades().forEach(System.out::println);
-                output.writeObject(student.getStudentGrades());
+                output.writeObject(student);
                 break;
             default:
                 System.out.println("Nieznana operacja");
@@ -172,6 +178,4 @@ public class serverApp {
             }
         }
     }
-
-
 }

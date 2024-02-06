@@ -13,15 +13,17 @@ public class StudentRepository {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("student_base");
     }
 
-    public void addStudent(Student newStudent) {
+    public String addStudent(Student newStudent) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();
 
             entityManager.persist(newStudent);
 
             entityManager.getTransaction().commit();
+            return "Student dodany pomyślnie";
         } catch (Exception e) {
             e.printStackTrace();
+            return "Student o podanym indeksie istnieje.";
         }
     }
 
@@ -58,7 +60,7 @@ public class StudentRepository {
         return students;
     }
 
-    public void removeStudent(int ind) {
+    public String removeStudent(int ind) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();
 
@@ -68,12 +70,14 @@ public class StudentRepository {
                 entityManager.remove(student);
             } else {
                 System.out.println("Nie znaleziono studenta z podanym indeksem: " + ind);
+                return "Student o podanym indeksie nie istnieje";
             }
 
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "Student usuniety";
     }
 
     public List<Student> getAllStudentsWithGrades() {
