@@ -39,15 +39,32 @@ public class StudentListController implements Initializable {
         String lastName = lastNameField.getText();
         String faculty = facultyChoiceBox.getValue();
 
+        if(faculty == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Brak wyboru wydzialu");
+            alert.setHeaderText("Bład");
+            alert.setContentText("Wybierz wydzial");
+
+            alert.showAndWait();
+            return;
+        }
+
         Student student = new Student(indexNumber, firstName, lastName, faculty);
         System.out.println(student);
         Connector.addStudent(student);
+
+        indexNumberField.clear();
+        firstNameField.clear();
+        lastNameField.clear();
+        facultyChoiceBox.getSelectionModel().clearSelection();
     }
 
-    private void setCheckBoxValues() {
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll("WEEiA", "FTIMS","BiNoZ");
-        facultyChoiceBox.setItems(list);
+    public void setCheckBoxValues() {
+        if(facultyChoiceBox != null) {
+            ObservableList<String> list = FXCollections.observableArrayList();
+            list.addAll("WEEiA", "FTIMS", "BiNoZ");
+            facultyChoiceBox.setItems(list);
+        }
     }
 
     public static void setStudent(ArrayList<Student> s) {
