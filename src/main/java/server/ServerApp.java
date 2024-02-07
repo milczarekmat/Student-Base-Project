@@ -93,13 +93,15 @@ public class ServerApp {
                 subjects.forEach(subject -> {
                     String subjectName = subject.getName();
                     final Float[] mean = {0f};
+                    final int[] sum = {0};
                     subject.getStudentGrades().forEach(studentGrade -> {
                         Grade grade = studentGrade.getGrade();
                         if (grade != null) {
+                            sum[0] += 1;
                             mean[0] += grade.getValue();
                         }
                     });
-                    mean[0] /= subject.getStudentGrades().size();
+                    mean[0] /= sum[0];
 
                     subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0] == 0 ? null : mean[0]));
                 });

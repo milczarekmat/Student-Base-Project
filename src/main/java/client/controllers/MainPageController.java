@@ -38,7 +38,7 @@ public class MainPageController implements Controller, Initializable {
         Integer studID = Integer.parseInt(findStudent.getText());
         Set<StudentGrade> s = Connector.searchStudentById(studID);
 
-        grades = s.stream().map(d -> new SubjectMeanInfo(d.getSubject().getName(), d.getGrade().getValue())).collect(Collectors.toList());
+        grades = s.stream().filter(e -> e.getGrade() != null).map(d -> new SubjectMeanInfo(d.getSubject().getName(), d.getGrade().getValue())).collect(Collectors.toList());
         tableView.getItems().clear();
         if (grades.size() != 0 && tableView != null) {
             ObservableList<SubjectMeanInfo> listaStudentow = FXCollections.observableArrayList(grades);
